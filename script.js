@@ -3,11 +3,11 @@ const translations = {
   'Voir le Menu': 'View Menu',
   "Retour à l'accueil": 'Back to Home',
   'Bonamoussadi, Face Lion Gate': 'Bonamoussadi, Opposite Lion Gate',
-  'Logpom - Carrefour Andem': 'Logpom - Andem Junction',
+  'Logpom Adam, Derrière la Station Neptune': 'Logpom Adam, Behind Neptune Station',
   'Grillades au feu de bois': 'Wood-Fire Grilling',
   'Bienvenue chez': 'Welcome to',
-  'Des grillades savoureuses et généreuses, préparées avec passion. Retrouvez-nous à Bonamoussadi (Face Lion Gate) et à Logpom - Carrefour Andem.':
-    'Tasty, generous grilled dishes, prepared with passion. Find us in Bonamoussadi (Opposite Lion Gate) and Logpom - Andem Junction.',
+  'Des grillades savoureuses et généreuses, préparées avec passion. Retrouvez-nous à Bonamoussadi (Face Lion Gate) et à Logpom Adam (Derrière la Station Neptune).':
+    'Tasty, generous grilled dishes, prepared with passion. Find us in Bonamoussadi (Opposite Lion Gate) and Logpom Adam (Behind Neptune Station).',
   'Contact': 'Contact',
   'Nos Adresses': 'Our Locations',
   'Suivez-nous': 'Follow Us',
@@ -161,6 +161,14 @@ const toggleLanguage = () => {
   applyLanguage();
 };
 
+// Keep the hero video playing continuously, resuming if it ever gets paused
+const heroVideo = document.querySelector('.hero-video');
+if (heroVideo) {
+  heroVideo.addEventListener('pause', () => {
+    heroVideo.play().catch(() => {});
+  });
+}
+
 // Auto-update footer copyright year
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -223,11 +231,14 @@ if (menuModal) {
     voirBtn.textContent = 'Voir';
     body.appendChild(voirBtn);
 
-    const cartBtn = document.createElement('button');
-    cartBtn.type = 'button';
-    cartBtn.className = 'btn-add-cart';
-    cartBtn.textContent = 'Ajouter au panier pour commander';
-    body.appendChild(cartBtn);
+    const inBoissons = body.closest('#boissons');
+    if (!inBoissons) {
+      const cartBtn = document.createElement('button');
+      cartBtn.type = 'button';
+      cartBtn.className = 'btn-add-cart';
+      cartBtn.textContent = 'Ajouter au panier pour commander';
+      body.appendChild(cartBtn);
+    }
   });
 
   const modalPhoto = document.getElementById('menu-modal-photo');
