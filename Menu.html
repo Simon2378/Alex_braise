@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu | Alex Braise</title>
+<link rel="icon" type="image/jpeg" href="IMG-20260822-WA0043.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <img src="IMG-20260822-WA0043.jpg" alt="Alex Braise logo" class="logo-img">
+      <span class="brand-text">
+        <span class="brand-name">Alex Braise</span>
+        <span class="brand-tagline">Feed The Body That Works The Money</span>
+      </span>
+    </a>
+
+    <div class="header-locations">
+      <a class="location-item" href="https://www.google.com/maps/search/?api=1&query=Bonamoussadi+Face+Lion+Gate" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C7.86 2 4.5 5.36 4.5 9.5c0 5.25 6.19 11.6 6.46 11.87a1.5 1.5 0 0 0 2.08 0C13.31 21.1 19.5 14.75 19.5 9.5 19.5 5.36 16.14 2 12 2Zm0 10.25a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5Z"/></svg>
+        <span>Bonamoussadi, Face Lion Gate</span>
+      </a>
+      <a class="location-item" href="https://www.google.com/maps/search/?api=1&query=Logpom+Carrefour+Andem" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C7.86 2 4.5 5.36 4.5 9.5c0 5.25 6.19 11.6 6.46 11.87a1.5 1.5 0 0 0 2.08 0C13.31 21.1 19.5 14.75 19.5 9.5 19.5 5.36 16.14 2 12 2Zm0 10.25a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5Z"/></svg>
+        <span>Logpom - Carrefour Andem</span>
+      </a>
+    </div>
+
+    <div class="nav-actions">
+      <a href="index.html" class="btn btn-primary">Retour à l'accueil</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="menu-banner">
+    <div class="container">
+      <span class="eyebrow">Alex Braise</span>
+      <h1>Notre Menu</h1>
+
+      <div class="menu-search">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2a8 8 0 1 0 4.9 14.32l5.39 5.39 1.41-1.42-5.39-5.38A8 8 0 0 0 10 2Zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12Z"/></svg>
+        <input type="search" id="menu-search-input" placeholder="Rechercher un plat, une boisson..." aria-label="Rechercher dans le menu">
+      </div>
+
+      <nav class="menu-shortcuts" aria-label="Raccourcis du menu">
+        <a href="#poulet">Poulet</a>
+        <a href="#viande">Viande de Bœuf &amp; Mouton</a>
+        <a href="#poisson">Poisson</a>
+        <a href="#accompagnement">Accompagnement</a>
+        <a href="#jus-naturelle">Jus Naturelle</a>
+        <a href="#smoothies">Smoothies Mix</a>
+        <a href="#detoxbio">Jus Détoxbio</a>
+        <a href="#milkshakes">Milkshakes</a>
+        <a href="#classiques">Boissons Classiques &amp; Bières</a>
+        <a href="#chaudes">Boissons Chaudes</a>
+      </nav>
+    </div>
+  </section>
+
+  <p id="menu-no-results" class="menu-no-results" hidden>Aucun résultat trouvé. Essayez un autre mot-clé.</p>
+
+  <section class="menu-section" id="poulet">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow eyebrow-alt">Menu</span>
+        <h2>Poulet</h2>
+        <p class="section-sub">Servi avec accompagnement</p>
+      </div>
+
+      <div class="menu-grid menu-grid-pairs">
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Poulet mayo un.webp" alt="Poulet Mayo Entier" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Entier</span>
+            <h3>Poulet Mayo</h3>
+            <p class="menu-card-price">7 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Poulet mayo demi.jpg" alt="Poulet Mayo Demi" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Demi</span>
+            <h3>Poulet Mayo</h3>
+            <p class="menu-card-price">4 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Un poulet yassa.jfif" alt="Poulet Yassa Entier" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Entier</span>
+            <h3>Poulet Yassa</h3>
+            <p class="menu-card-price">8 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Demi poulet yassa.jfif" alt="Poulet Yassa Demi" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Demi</span>
+            <h3>Poulet Yassa</h3>
+            <p class="menu-card-price">4 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Un poulet dg.jpg" alt="Poulet DG Entier" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Entier</span>
+            <h3>Poulet DG</h3>
+            <p class="menu-card-price">8 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Demi poulet dg.jfif" alt="Poulet DG Demi" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Demi</span>
+            <h3>Poulet DG</h3>
+            <p class="menu-card-price">4 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Un poulet pane.jfif" alt="Poulet Pané Entier" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Entier</span>
+            <h3>Poulet Pané</h3>
+            <p class="menu-card-price">8 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Demi poulet panne.png" alt="Poulet Pané Demi" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Demi</span>
+            <h3>Poulet Pané</h3>
+            <p class="menu-card-price">4 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Un poulet braise.jpeg" alt="Poulet Braisé Entier" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Entier</span>
+            <h3>Poulet Braisé</h3>
+            <p class="menu-card-price">6 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Demi poulet braise.jpeg" alt="Poulet Braisé Demi" loading="lazy" class="photo-zoom-md">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Demi</span>
+            <h3>Poulet Braisé</h3>
+            <p class="menu-card-price">3 000 FCFA</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="viande">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow eyebrow-alt">Menu</span>
+        <h2>Viande de Bœuf &amp; Mouton</h2>
+      </div>
+
+      <div class="menu-grid menu-grid-compact">
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Viande braise.jfif" alt="Viande de Bœuf Braisé (Soya)" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Viande de Bœuf Braisé (Soya)</h3>
+            <p class="menu-card-price">1 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Viande de Bœuf Cuit à l'Étouffé.webp" alt="Viande de Bœuf Cuit à l'Étouffé" loading="lazy" class="photo-zoom-lg">
+          </div>
+          <div class="menu-card-body">
+            <h3>Viande de Bœuf Cuit à l'Étouffé</h3>
+            <p class="menu-card-price">2 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Viande de Mouton Braisée.jpg" alt="Viande de Mouton Braisée" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Viande de Mouton Braisée</h3>
+            <p class="menu-card-price">2 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Sauté de Patte et Gésiers de Poulet (20 pattes, 10 gésiers).jpg" alt="Sauté de Patte et Gésiers de Poulet" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Sauté de Patte et Gésiers de Poulet (20 pattes, 10 gésiers)</h3>
+            <p class="menu-card-price">5 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Shawarma.jfif" alt="Shawarma" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Shawarma</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Shawarma au fromage.png" alt="Shawarma au Fromage" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Shawarma au Fromage</h3>
+            <p class="menu-card-price">2 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Boyaux de Mouton.png" alt="Boyaux de Mouton" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Boyaux de Mouton</h3>
+            <p class="menu-card-price">2 000 FCFA</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="poisson">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow eyebrow-alt">Menu</span>
+        <h2>Poisson</h2>
+        <p class="section-sub">Servi avec accompagnement</p>
+      </div>
+
+      <div class="menu-grid menu-grid-pairs">
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Bar.png" alt="Bar Braisé" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Braisé</span>
+            <h3>Bar</h3>
+            <p class="menu-card-price">5 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Carpe braise.jfif" alt="Carpe Braisé" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Braisé</span>
+            <h3>Carpe</h3>
+            <p class="menu-card-price">5 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Maquereau.png" alt="Maquereau Braisé" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Braisé</span>
+            <h3>Maquereau</h3>
+            <p class="menu-card-price">5 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Silule braise.png" alt="Silule Braisé" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Braisé</span>
+            <h3>Silule</h3>
+            <p class="menu-card-price">5 000 FCFA</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-heading section-heading-sub" id="accompagnement">
+        <span class="eyebrow eyebrow-alt">Accompagnement</span>
+        <h3>Frites &amp; Riz</h3>
+      </div>
+
+      <div class="menu-grid menu-grid-pairs">
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="fried-plantain.webp" alt="Plantains" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Plantains</h3>
+            <p class="menu-card-price">1 000 / 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Frites de pomme.jfif" alt="Pommes" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Pommes</h3>
+            <p class="menu-card-price">1 000 / 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="BObolo.jfif" alt="Bobolo" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Bobolo</h3>
+            <p class="menu-card-price">1 000 / 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Fried rice.jfif" alt="Fried Rice" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Fried Rice</h3>
+            <p class="menu-card-price">1 000 FCFA</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="boissons">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow eyebrow-alt">Menu</span>
+        <h2>Nos Boissons</h2>
+      </div>
+
+      <div class="menu-grid menu-grid-drinks" id="jus-naturelle">
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Jus naturel.png" alt="Jus Naturelle" loading="lazy" class="photo-pos-right">
+          </div>
+          <div class="menu-card-body">
+            <h3>Jus Naturelle</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+            <p class="drink-paragraph">Une sélection de jus frais pressés au choix : Orange, Ananas, Gingembre, Cassimango, Papaye, Pastèque, Mangue, Passion, Pomme, Citron, Carotte...</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Folere.jfif" alt="Folére" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Folére</h3>
+            <p class="menu-card-price">1 000 FCFA</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-heading section-heading-sub" id="smoothies">
+        <span class="eyebrow eyebrow-alt">Menu</span>
+        <h3>Smoothies Mix</h3>
+      </div>
+
+      <div class="menu-grid menu-grid-drinks">
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Ananas mangue.png" alt="Ananas &amp; Mangue" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Ananas &amp; Mangue</h3>
+            <p class="menu-card-price">2 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Ananas passion.jfif" alt="Ananas &amp; Passion" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Ananas &amp; Passion</h3>
+            <p class="menu-card-price">2 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Anana papaye.png" alt="Ananas &amp; Papaye" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Ananas &amp; Papaye</h3>
+            <p class="menu-card-price">2 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Melange au choix.webp" alt="Mélange au Choix" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Mélange au Choix</h3>
+            <p class="menu-card-price">2 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Fruits de saison.png" alt="Fruits de Saison" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Fruits de Saison</h3>
+            <p class="menu-card-price">2 500 FCFA</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-heading section-heading-sub" id="detoxbio">
+        <span class="eyebrow eyebrow-alt">Menu</span>
+        <h3>Jus Détoxbio</h3>
+      </div>
+
+      <div class="menu-grid menu-grid-drinks">
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Jus d'exobio Ananas - Concombre - Pomme.png" alt="Ananas - Concombre - Pomme" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Ananas - Concombre - Pomme</h3>
+            <p class="menu-card-price">3 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Ananas - Gingembre - Citron.webp" alt="Ananas - Gingembre - Citron" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Ananas - Gingembre - Citron</h3>
+            <p class="menu-card-price">3 000 FCFA</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-heading section-heading-sub" id="milkshakes">
+        <span class="eyebrow eyebrow-alt">Menu</span>
+        <h3>Milkshakes &amp; Boissons Glacées</h3>
+      </div>
+
+      <div class="menu-grid menu-grid-drinks">
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Milkshake.webp" alt="Milkshake" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Milkshake</h3>
+            <p class="menu-card-price">2 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Milkshake au lait.jfif" alt="Menthe au Lait" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Menthe au Lait</h3>
+            <p class="menu-card-price">2 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Sirop de Menthe.jfif" alt="Sirop de Menthe" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Sirop de Menthe</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-heading section-heading-sub" id="classiques">
+        <span class="eyebrow eyebrow-alt">Menu</span>
+        <h3>Boissons Classiques &amp; Bières</h3>
+      </div>
+
+      <div class="menu-grid menu-grid-drinks">
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Coca.png" alt="Coca-Cola" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Coca-Cola (canette)</h3>
+            <p class="menu-card-price">1 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Fanta.png" alt="Fanta" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Fanta (canette)</h3>
+            <p class="menu-card-price">1 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="sprite.png" alt="Sprite" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Sprite (canette)</h3>
+            <p class="menu-card-price">1 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Super(pm).png" alt="Eau Minérale Petit Format" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Petit</span>
+            <h3>Eau Minérale</h3>
+            <p class="menu-card-price">500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Supermont.png" alt="Eau Minérale Grand Format" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <span class="menu-card-tag">Grand</span>
+            <h3>Eau Minérale</h3>
+            <p class="menu-card-price">1 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Malta.png.jfif" alt="Malta" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Malta</h3>
+            <p class="menu-card-price">1 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="guiness.png" alt="Guinness" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Guinness</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Ice.png" alt="Ice" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Ice</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Heineken.png.jfif" alt="Heineken" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Heineken</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Redbull.png" alt="Redbull" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Redbull</h3>
+            <p class="menu-card-price">2 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Booster w.png" alt="Booster (canette)" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Booster (canette)</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Bavaria.png" alt="Bavaria" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Bavaria</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Blager.png" alt="Beaufort Lager" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>Beaufort Lager</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Blight.png" alt="Beaufort Light" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>Beaufort Light</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Castel.png" alt="Castel" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>Castel</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Castle.png" alt="Castle Milk Stout" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>Castle Milk Stout</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Mutzig.png" alt="Mutzig" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>Mutzig</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="33.png" alt="33 Export" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>33 Export</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="skroll.png" alt="Skøll" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>Skøll</h3>
+            <p class="menu-card-price">2 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Smooth.png" alt="Guinness Smooth" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>Guinness Smooth</h3>
+            <p class="menu-card-price">2 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Kadji.png" alt="Kadji Beer" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>Kadji Beer</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Manyan.png" alt="Manyan" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>Manyan</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="Chill.png" alt="Chill Citron" loading="lazy" class="photo-contain">
+          </div>
+          <div class="menu-card-body">
+            <h3>Chill Citron</h3>
+            <p class="menu-card-price">1 500 FCFA</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-heading section-heading-sub" id="chaudes">
+        <span class="eyebrow eyebrow-alt">Menu</span>
+        <h3>Boissons Chaudes</h3>
+      </div>
+
+      <div class="menu-grid menu-grid-drinks">
+        <article class="menu-card">
+          <div class="menu-card-photo">
+            <img src="The.png" alt="Thé" loading="lazy">
+          </div>
+          <div class="menu-card-body">
+            <h3>Thé</h3>
+            <p class="menu-card-price">1 000 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M21 5H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Zm-1 12H4V7h16v10ZM8 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm-3 5 4-4 3 3 5-6 4 7H5Z"/></svg>
+            <span>Photo à venir</span>
+          </div>
+          <div class="menu-card-body">
+            <h3>Chaï</h3>
+            <p class="menu-card-price">500 FCFA</p>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card-photo" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M21 5H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Zm-1 12H4V7h16v10ZM8 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm-3 5 4-4 3 3 5-6 4 7H5Z"/></svg>
+            <span>Photo à venir</span>
+          </div>
+          <div class="menu-card-body">
+            <h3>Café</h3>
+            <p class="menu-card-price">1 000 FCFA</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <img src="IMG-20260822-WA0043.jpg" alt="Alex Braise logo" class="footer-logo">
+      <p class="footer-tagline">Feed The Body That Works The Money</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Contact</h3>
+      <a class="footer-link" href="https://wa.me/237682122185" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16.02 2.67C8.6 2.67 2.57 8.7 2.57 16.12c0 2.55.71 4.94 1.94 6.98L2 29.33l6.42-2.46a13.4 13.4 0 0 0 7.6 2.36h.01c7.42 0 13.45-6.03 13.45-13.45S23.44 2.67 16.02 2.67Zm0 24.4h-.01a11.13 11.13 0 0 1-5.68-1.56l-.41-.24-4.05 1.55 1.57-3.98-.27-.42a11.13 11.13 0 0 1-1.7-5.9c0-6.17 5.03-11.2 11.2-11.2 2.99 0 5.8 1.16 7.92 3.28a11.12 11.12 0 0 1 3.27 7.92c0 6.18-5.03 11.2-11.2 11.2Zm6.13-8.39c-.34-.17-1.99-.98-2.3-1.1-.31-.11-.53-.17-.76.17-.22.34-.87 1.1-1.07 1.32-.2.23-.39.26-.73.09-.34-.17-1.43-.53-2.72-1.68-1-.9-1.68-2-1.88-2.34-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.22-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.76-1.85-1.05-2.53-.27-.66-.55-.57-.76-.58l-.65-.01c-.23 0-.6.09-.91.43-.31.34-1.19 1.17-1.19 2.84 0 1.67 1.22 3.29 1.39 3.52.17.23 2.4 3.68 5.83 5.15.81.35 1.45.56 1.94.71.82.26 1.56.22 2.15.14.66-.1 1.99-.81 2.27-1.6.28-.79.28-1.46.2-1.6-.08-.14-.31-.23-.65-.4Z"/></svg>
+        <span>+237 682 122 185</span>
+      </a>
+      <a class="footer-link" href="mailto:Alexbraise@gmail.com">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h15A1.5 1.5 0 0 1 21 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13Zm2.2.5 6.8 5.1L18.8 6H5.2Zm13.8 1.4-6.53 4.9a1 1 0 0 1-1.2 0L4.99 7.4V18h14.01V7.4Z"/></svg>
+        <span>Alexbraise@gmail.com</span>
+      </a>
+    </div>
+
+    <div class="footer-col">
+      <h3>Nos Adresses</h3>
+      <p class="footer-address">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C7.86 2 4.5 5.36 4.5 9.5c0 5.25 6.19 11.6 6.46 11.87a1.5 1.5 0 0 0 2.08 0C13.31 21.1 19.5 14.75 19.5 9.5 19.5 5.36 16.14 2 12 2Zm0 10.25a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5Z"/></svg>
+        <span>Bonamoussadi, Face Lion Gate</span>
+      </p>
+      <p class="footer-address">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C7.86 2 4.5 5.36 4.5 9.5c0 5.25 6.19 11.6 6.46 11.87a1.5 1.5 0 0 0 2.08 0C13.31 21.1 19.5 14.75 19.5 9.5 19.5 5.36 16.14 2 12 2Zm0 10.25a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5Z"/></svg>
+        <span>Logpom - Carrefour Andem</span>
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Suivez-nous</h3>
+      <div class="social-links">
+        <a href="https://www.facebook.com/share/1DHtrjbM6m/" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8.1h2.72l.41-3.16h-3.13V7.7c0-.91.25-1.53 1.56-1.53h1.67V3.35C16.44 3.24 15.46 3.16 14.32 3.16c-2.38 0-4 1.45-4 4.11v2.63H7.59v3.16h2.73V21h3.18Z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@alexbraise1" target="_blank" rel="noopener" class="social-icon" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 3c.4 2.2 1.9 3.9 4.4 4.1v2.9c-1.5.1-2.9-.4-4.1-1.2v6.6c0 3.3-2.7 6-6 6-1.4 0-2.7-.5-3.7-1.3-1.5-1.2-2.3-3.1-2.1-5.1.3-2.9 2.7-5.2 5.6-5.4.5 0 1 0 1.5.1v3c-.4-.1-.9-.2-1.4-.2-1.5.1-2.7 1.3-2.8 2.8-.1 1.4.8 2.7 2.1 3.1.4.1.8.2 1.2.1 1.5-.1 2.7-1.4 2.7-2.9V3h2.6Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> Alex Braise. <span class="i18n-plain">Tous droits réservés.</span></p>
+  </div>
+</footer>
+
+<a href="https://wa.me/237682122185" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Commander sur WhatsApp">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.02 2.67C8.6 2.67 2.57 8.7 2.57 16.12c0 2.55.71 4.94 1.94 6.98L2 29.33l6.42-2.46a13.4 13.4 0 0 0 7.6 2.36h.01c7.42 0 13.45-6.03 13.45-13.45S23.44 2.67 16.02 2.67Zm0 24.4h-.01a11.13 11.13 0 0 1-5.68-1.56l-.41-.24-4.05 1.55 1.57-3.98-.27-.42a11.13 11.13 0 0 1-1.7-5.9c0-6.17 5.03-11.2 11.2-11.2 2.99 0 5.8 1.16 7.92 3.28a11.12 11.12 0 0 1 3.27 7.92c0 6.18-5.03 11.2-11.2 11.2Zm6.13-8.39c-.34-.17-1.99-.98-2.3-1.1-.31-.11-.53-.17-.76.17-.22.34-.87 1.1-1.07 1.32-.2.23-.39.26-.73.09-.34-.17-1.43-.53-2.72-1.68-1-.9-1.68-2-1.88-2.34-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.22-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.76-1.85-1.05-2.53-.27-.66-.55-.57-.76-.58l-.65-.01c-.23 0-.6.09-.91.43-.31.34-1.19 1.17-1.19 2.84 0 1.67 1.22 3.29 1.39 3.52.17.23 2.4 3.68 5.83 5.15.81.35 1.45.56 1.94.71.82.26 1.56.22 2.15.14.66-.1 1.99-.81 2.27-1.6.28-.79.28-1.46.2-1.6-.08-.14-.31-.23-.65-.4Z"/></svg>
+  <span>Commander</span>
+</a>
+
+<button type="button" class="cart-float" id="cart-float" aria-label="Voir le panier">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h-2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2h-11.58l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49a1 1 0 0 0-.88-1.48H8.53l-.95-2ZM9 20a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
+  <span class="cart-badge" id="cart-badge" hidden>0</span>
+</button>
+
+<div class="cart-modal" id="cart-modal" aria-hidden="true">
+  <div class="cart-modal-backdrop" data-cart-close></div>
+  <div class="cart-dialog" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <div class="cart-header">
+      <h3 id="cart-title">Votre Panier</h3>
+      <button type="button" class="cart-close" data-cart-close aria-label="Fermer">&times;</button>
+    </div>
+
+    <div class="cart-items" id="cart-items"></div>
+    <p class="cart-empty" id="cart-empty">Votre panier est vide.</p>
+
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span class="i18n-plain">Total</span>
+        <span id="cart-total">0 FCFA</span>
+      </div>
+      <div class="cart-actions">
+        <button type="button" class="btn-cart-clear" id="cart-clear">Vider le panier</button>
+        <a href="#" target="_blank" rel="noopener" class="btn-cart-order is-disabled" id="cart-order">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.02 2.67C8.6 2.67 2.57 8.7 2.57 16.12c0 2.55.71 4.94 1.94 6.98L2 29.33l6.42-2.46a13.4 13.4 0 0 0 7.6 2.36h.01c7.42 0 13.45-6.03 13.45-13.45S23.44 2.67 16.02 2.67Zm0 24.4h-.01a11.13 11.13 0 0 1-5.68-1.56l-.41-.24-4.05 1.55 1.57-3.98-.27-.42a11.13 11.13 0 0 1-1.7-5.9c0-6.17 5.03-11.2 11.2-11.2 2.99 0 5.8 1.16 7.92 3.28a11.12 11.12 0 0 1 3.27 7.92c0 6.18-5.03 11.2-11.2 11.2Zm6.13-8.39c-.34-.17-1.99-.98-2.3-1.1-.31-.11-.53-.17-.76.17-.22.34-.87 1.1-1.07 1.32-.2.23-.39.26-.73.09-.34-.17-1.43-.53-2.72-1.68-1-.9-1.68-2-1.88-2.34-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.22-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.76-1.85-1.05-2.53-.27-.66-.55-.57-.76-.58l-.65-.01c-.23 0-.6.09-.91.43-.31.34-1.19 1.17-1.19 2.84 0 1.67 1.22 3.29 1.39 3.52.17.23 2.4 3.68 5.83 5.15.81.35 1.45.56 1.94.71.82.26 1.56.22 2.15.14.66-.1 1.99-.81 2.27-1.6.28-.79.28-1.46.2-1.6-.08-.14-.31-.23-.65-.4Z"/></svg>
+          <span class="i18n-plain">Commander Maintenant</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="menu-modal" id="menu-modal" aria-hidden="true">
+  <div class="menu-modal-backdrop" data-modal-close></div>
+  <div class="menu-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="menu-modal-title">
+    <button type="button" class="menu-modal-close" data-modal-close aria-label="Fermer">&times;</button>
+    <div class="menu-modal-photo" id="menu-modal-photo"></div>
+    <div class="menu-modal-body">
+      <span class="menu-modal-tag" id="menu-modal-tag"></span>
+      <h3 id="menu-modal-title"></h3>
+      <p class="menu-modal-price" id="menu-modal-price"></p>
+      <p class="menu-modal-desc" id="menu-modal-desc"></p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
