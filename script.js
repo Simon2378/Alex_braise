@@ -50,7 +50,7 @@ const translations = {
   'Bar': 'Sea Bass',
   'Carpe': 'Carp',
   'Maquereau': 'Mackerel',
-  'Silule': 'Silule (Catfish)',
+  'Cellule': 'Cellule',
   'Plantains': 'Plantains',
   'Pommes': 'Potato Fries',
   'Bobolo': 'Bobolo',
@@ -91,7 +91,6 @@ const translations = {
   'Manyan': 'Manyan',
   'Chill Citron': 'Chill Citron',
   'Thé': 'Tea',
-  'Chaï': 'Chai Tea',
   'Café': 'Coffee',
   'Photo à venir': 'Photo coming soon',
   'Votre Panier': 'Your Cart',
@@ -222,12 +221,12 @@ if (menuBanner) {
       "Poulet DG|Entier": {
         name: "Poulet Cuit à l'Étouffée",
         price: '5 000 FCFA',
-        photo: "Poulet Cuit à l'Étouffée.png",
+        photo: "images/Poulet Cuit à l'Étouffée.png",
       },
       "Poulet DG|Demi": {
         name: "Poulet Cuit à l'Étouffée",
         price: '2 500 FCFA',
-        photo: "demi Poulet Cuit à l'Étouffée.avif",
+        photo: "images/demi Poulet Cuit à l'Étouffée.avif",
       },
     };
 
