@@ -161,6 +161,104 @@ const toggleLanguage = () => {
   applyLanguage();
 };
 
+// Ask which restaurant location before going to the menu (prices differ by location)
+const locationModal = document.getElementById('location-modal');
+const heroMenuBtn = document.querySelector('.hero-inner a.btn-liquid');
+if (locationModal && heroMenuBtn) {
+  const openLocationModal = () => {
+    locationModal.classList.add('is-open');
+    locationModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  };
+
+  const closeLocationModal = () => {
+    locationModal.classList.remove('is-open');
+    locationModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  };
+
+  heroMenuBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openLocationModal();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-location-close]')) closeLocationModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && locationModal.classList.contains('is-open')) closeLocationModal();
+  });
+}
+
+// Menu.html: swap Poulet prices/names based on the chosen location (?loc=logpom)
+const menuBanner = document.querySelector('.menu-banner');
+if (menuBanner) {
+  const locationParam = new URLSearchParams(window.location.search).get('loc');
+  const currentLocation = locationParam === 'logpom' ? 'logpom' : 'bonamoussadi';
+  const locationLabels = {
+    bonamoussadi: 'Bonamoussadi, Face Lion Gate',
+    logpom: 'Logpom Adam, Derrière la Station Neptune',
+  };
+
+  const bannerH1 = menuBanner.querySelector('h1');
+  if (bannerH1) {
+    const sub = document.createElement('p');
+    sub.className = 'menu-banner-location';
+    sub.textContent = locationLabels[currentLocation];
+    bannerH1.insertAdjacentElement('afterend', sub);
+  }
+
+  if (currentLocation === 'logpom') {
+    const logpomOverrides = {
+      'Poulet Mayo|Entier': { price: '6 000 FCFA' },
+      'Poulet Mayo|Demi': { price: '3 000 FCFA' },
+      'Poulet Yassa|Entier': { price: '7 000 FCFA' },
+      'Poulet Yassa|Demi': { price: '3 500 FCFA' },
+      'Poulet Pané|Entier': { price: '7 000 FCFA' },
+      'Poulet Pané|Demi': { price: '3 500 FCFA' },
+      'Poulet Braisé|Entier': { price: '4 000 FCFA' },
+      'Poulet Braisé|Demi': { price: '2 000 FCFA' },
+      "Poulet DG|Entier": {
+        name: "Poulet Cuit à l'Étouffée",
+        price: '5 000 FCFA',
+        photo: "Poulet Cuit à l'Étouffée.png",
+      },
+      "Poulet DG|Demi": {
+        name: "Poulet Cuit à l'Étouffée",
+        price: '2 500 FCFA',
+        photo: "demi Poulet Cuit à l'Étouffée.avif",
+      },
+    };
+
+    document.querySelectorAll('#poulet .menu-card').forEach((card) => {
+      const titleEl = card.querySelector('h3');
+      const tagEl = card.querySelector('.menu-card-tag');
+      const priceEl = card.querySelector('.menu-card-price');
+      if (!titleEl || !tagEl || !priceEl) return;
+
+      const override = logpomOverrides[`${titleEl.textContent.trim()}|${tagEl.textContent.trim()}`];
+      if (!override) return;
+
+      if (override.name) titleEl.textContent = override.name;
+      priceEl.textContent = override.price;
+
+      if (override.photo) {
+        const photo = card.querySelector('.menu-card-photo');
+        if (photo) {
+          photo.removeAttribute('aria-hidden');
+          const img = document.createElement('img');
+          img.src = override.photo;
+          img.alt = override.name;
+          img.loading = 'lazy';
+          photo.innerHTML = '';
+          photo.appendChild(img);
+        }
+      }
+    });
+  }
+}
+
 // Keep the hero video playing continuously, resuming if it ever gets paused
 const heroVideo = document.querySelector('.hero-video');
 if (heroVideo) {
