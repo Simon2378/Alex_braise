@@ -258,6 +258,30 @@ if (menuBanner) {
   }
 }
 
+// Reveal menu cards with a fade/slide-up animation as they scroll into view
+const revealCards = document.querySelectorAll('.menu-card');
+if (revealCards.length && 'IntersectionObserver' in window) {
+  document.documentElement.classList.add('js-reveal-ready');
+
+  revealCards.forEach((card, index) => {
+    card.style.transitionDelay = `${(index % 4) * 90}ms`;
+  });
+
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  revealCards.forEach((card) => revealObserver.observe(card));
+}
+
 // Keep the hero video playing continuously, resuming if it ever gets paused
 const heroVideo = document.querySelector('.hero-video');
 if (heroVideo) {
