@@ -979,6 +979,13 @@ a { text-decoration: none; color: inherit; }
   flex-shrink: 0;
 }
 
+.cart-delivery-note {
+  font-size: 0.8rem;
+  color: #8A7C68;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
 .cart-total-row {
   display: flex;
   justify-content: space-between;
