@@ -3,11 +3,11 @@ const translations = {
   'Voir le Menu': 'View Menu',
   "Retour à l'accueil": 'Back to Home',
   'Bonamoussadi, Face Lion Gate': 'Bonamoussadi, Opposite Lion Gate',
-  'Logpom Adam, Derrière la Station Neptune': 'Logpom Adam, Behind Neptune Station',
+  'Logpom Adem, Derrière la Station Neptune': 'Logpom Adem, Behind Neptune Station',
   'Grillades au feu de bois': 'Wood-Fire Grilling',
   'Bienvenue chez': 'Welcome to',
-  'Des grillades savoureuses et généreuses, préparées avec passion. Retrouvez-nous à Bonamoussadi (Face Lion Gate) et à Logpom Adam (Derrière la Station Neptune).':
-    'Tasty, generous grilled dishes, prepared with passion. Find us in Bonamoussadi (Opposite Lion Gate) and Logpom Adam (Behind Neptune Station).',
+  'Des grillades savoureuses et généreuses, préparées avec passion. Retrouvez-nous à Bonamoussadi (Face Lion Gate) et à Logpom Adem (Derrière la Station Neptune).':
+    'Tasty, generous grilled dishes, prepared with passion. Find us in Bonamoussadi (Opposite Lion Gate) and Logpom Adem (Behind Neptune Station).',
   'Contact': 'Contact',
   'Nos Adresses': 'Our Locations',
   'Suivez-nous': 'Follow Us',
@@ -197,7 +197,7 @@ if (menuBanner) {
   const currentLocation = locationParam === 'logpom' ? 'logpom' : 'bonamoussadi';
   const locationLabels = {
     bonamoussadi: 'Bonamoussadi, Face Lion Gate',
-    logpom: 'Logpom Adam, Derrière la Station Neptune',
+    logpom: 'Logpom Adem, Derrière la Station Neptune',
   };
 
   const bannerH1 = menuBanner.querySelector('h1');
@@ -255,6 +255,19 @@ if (menuBanner) {
         }
       }
     });
+
+    // Logpom's menu only covers Poulet through Accompagnement: hide the whole Boissons section
+    const boissonsSection = document.getElementById('boissons');
+    if (boissonsSection) boissonsSection.classList.add('is-hidden');
+
+    ['#jus-naturelle', '#smoothies', '#detoxbio', '#milkshakes', '#classiques', '#chaudes'].forEach((href) => {
+      const shortcut = document.querySelector(`.menu-shortcuts a[href="${href}"]`);
+      if (shortcut) shortcut.classList.add('is-hidden');
+    });
+
+    // Route WhatsApp orders to the Logpom number
+    const whatsappFloat = document.getElementById('whatsapp-float');
+    if (whatsappFloat) whatsappFloat.href = 'https://wa.me/237655713544';
   }
 }
 
@@ -416,7 +429,8 @@ if (menuModal) {
 const cartModal = document.getElementById('cart-modal');
 if (cartModal) {
   const CART_KEY = 'alexbraise_cart';
-  const WHATSAPP_NUMBER = '237682122185';
+  const WHATSAPP_NUMBER =
+    new URLSearchParams(window.location.search).get('loc') === 'logpom' ? '237655713544' : '237682122185';
 
   const loadCart = () => {
     try {
@@ -466,13 +480,43 @@ if (cartModal) {
         const row = document.createElement('div');
         row.className = 'cart-item';
 
+        const infoEl = document.createElement('div');
+        infoEl.className = 'cart-item-info';
+
         const nameEl = document.createElement('span');
         nameEl.className = 'cart-item-name';
-        nameEl.textContent = item.qty > 1 ? `${item.name} x${item.qty}` : item.name;
+        nameEl.textContent = item.name;
 
         const priceEl = document.createElement('span');
         priceEl.className = 'cart-item-price';
         priceEl.textContent = formatPrice(item.price * item.qty);
+
+        infoEl.append(nameEl, priceEl);
+
+        const qtyEl = document.createElement('div');
+        qtyEl.className = 'cart-item-qty';
+
+        const decreaseBtn = document.createElement('button');
+        decreaseBtn.type = 'button';
+        decreaseBtn.className = 'qty-btn';
+        decreaseBtn.dataset.qtyAction = 'decrease';
+        decreaseBtn.dataset.qtyIndex = String(index);
+        decreaseBtn.setAttribute('aria-label', 'Réduire la quantité');
+        decreaseBtn.textContent = '−';
+
+        const qtyValue = document.createElement('span');
+        qtyValue.className = 'qty-value';
+        qtyValue.textContent = item.qty;
+
+        const increaseBtn = document.createElement('button');
+        increaseBtn.type = 'button';
+        increaseBtn.className = 'qty-btn';
+        increaseBtn.dataset.qtyAction = 'increase';
+        increaseBtn.dataset.qtyIndex = String(index);
+        increaseBtn.setAttribute('aria-label', 'Augmenter la quantité');
+        increaseBtn.textContent = '+';
+
+        qtyEl.append(decreaseBtn, qtyValue, increaseBtn);
 
         const removeBtn = document.createElement('button');
         removeBtn.type = 'button';
@@ -481,7 +525,7 @@ if (cartModal) {
         removeBtn.dataset.removeIndex = String(index);
         removeBtn.innerHTML = '&times;';
 
-        row.append(nameEl, priceEl, removeBtn);
+        row.append(infoEl, qtyEl, removeBtn);
         cartItemsEl.appendChild(row);
       });
     }
@@ -511,6 +555,18 @@ if (cartModal) {
   const removeFromCart = (index) => {
     const cart = loadCart();
     cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+  };
+
+  const changeQty = (index, delta) => {
+    const cart = loadCart();
+    const item = cart[index];
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) {
+      cart.splice(index, 1);
+    }
     saveCart(cart);
     renderCart();
   };
@@ -573,6 +629,13 @@ if (cartModal) {
     const removeBtn = e.target.closest('.cart-item-remove');
     if (removeBtn) {
       removeFromCart(parseInt(removeBtn.dataset.removeIndex, 10));
+      return;
+    }
+
+    const qtyBtn = e.target.closest('.qty-btn');
+    if (qtyBtn) {
+      const delta = qtyBtn.dataset.qtyAction === 'increase' ? 1 : -1;
+      changeQty(parseInt(qtyBtn.dataset.qtyIndex, 10), delta);
     }
   });
 

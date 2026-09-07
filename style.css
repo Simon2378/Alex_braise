@@ -932,8 +932,15 @@ a { text-decoration: none; color: inherit; }
 
 .cart-item:last-child { border-bottom: none; }
 
-.cart-item-name {
+.cart-item-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.cart-item-name {
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 0.9rem;
@@ -946,6 +953,46 @@ a { text-decoration: none; color: inherit; }
   color: var(--color-red);
   font-size: 0.88rem;
   white-space: nowrap;
+}
+
+.cart-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.qty-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #D8CDBB;
+  background: #fff;
+  color: var(--color-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-family: var(--font-heading);
+  line-height: 1;
+  padding: 0;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.qty-btn:hover {
+  background: var(--color-red);
+  border-color: var(--color-red);
+  color: #fff;
+}
+
+.qty-value {
+  min-width: 18px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-dark);
 }
 
 .cart-item-remove {
