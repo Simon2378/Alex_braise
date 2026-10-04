@@ -26,7 +26,7 @@ const translations = {
   'Boissons Classiques & Bières': 'Classic Drinks & Beers',
   'Boissons Chaudes': 'Hot Drinks',
   'Menu': 'Menu',
-  'Servi avec accompagnement': 'Served with a side',
+  'Accompagnements vendus en supplément (payants)': 'Sides sold as extras (extra charge)',
   'Frites & Riz': 'Fries & Rice',
   'Nos Boissons': 'Our Drinks',
   'Entier': 'Whole',
