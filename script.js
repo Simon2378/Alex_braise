@@ -50,7 +50,7 @@ const translations = {
   'Bar': 'Sea Bass',
   'Carpe': 'Carp',
   'Maquereau': 'Mackerel',
-  'Cellule': 'Cellule',
+  'Silure': 'Catfish',
   'Plantains': 'Plantains',
   'Pommes': 'Potato Fries',
   'Bobolo': 'Bobolo',
