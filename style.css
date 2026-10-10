@@ -1508,7 +1508,7 @@ body.modal-open { overflow: hidden; }
 .birthday-banner-track {
   display: flex;
   width: max-content;
-  animation: birthday-scroll 32s linear infinite;
+  animation: birthday-scroll 55s linear infinite;
 }
 
 .birthday-banner-track span {
@@ -1519,6 +1519,14 @@ body.modal-open { overflow: hidden; }
   font-weight: 600;
   font-size: 0.85rem;
   white-space: nowrap;
+}
+
+.birthday-banner-track .icon {
+  width: 15px;
+  height: 15px;
+  vertical-align: -3px;
+  margin: 0 2px;
+  fill: var(--color-gold);
 }
 
 @keyframes birthday-scroll {
