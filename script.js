@@ -136,6 +136,22 @@ const I18N_SELECTORS = [
   '.btn-add-cart',
 ].join(', ');
 
+// Birthday banner: holds inline SVG icons, so it's swapped as full HTML
+// rather than run through the plain-text translation engine above.
+const BIRTHDAY_BANNER_ICON_GIFT = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="1"/><rect x="3" y="7" width="18" height="4" rx="1"/><rect x="11" y="7" width="2" height="13"/><path d="M12 7c0 0-3 0-4-1.5C7.2 4.3 8.3 3 9.8 3 11 3 12 4.5 12 7Z"/><path d="M12 7c0 0 3 0 4-1.5C16.8 4.3 15.7 3 14.2 3 13 3 12 4.5 12 7Z"/></svg>';
+const BIRTHDAY_BANNER_ICON_CAKE = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="13" width="16" height="8" rx="1.5"/><rect x="4" y="10" width="16" height="3.5" rx="1.5"/><rect x="11" y="6" width="2" height="4"/><path d="M12 2c1.2 1.2 1.2 2.6 0 3.8-1.2-1.2-1.2-2.6 0-3.8Z"/></svg>';
+const BIRTHDAY_BANNER_HTML = {
+  fr: `${BIRTHDAY_BANNER_ICON_GIFT} Aujourd'hui, nous célébrons un an de plus pour notre PDG ! Un homme généreux, visionnaire et dévoué, qui porte Alex Braise avec passion et bienveillance chaque jour. Joyeux anniversaire, Patron ! ${BIRTHDAY_BANNER_ICON_CAKE} N'oubliez pas que les tickets de Ndolo L'amour sont toujours disponibles chez Alex Braise à 8000 FCFA seulement au lieu de 10 000 FCFA !&nbsp;&nbsp;•&nbsp;&nbsp;`,
+  en: `${BIRTHDAY_BANNER_ICON_GIFT} Today we celebrate another year of our CEO! A generous, visionary and dedicated man who leads Alex Braise with passion and kindness every single day. Happy Birthday, Boss! ${BIRTHDAY_BANNER_ICON_CAKE} Don't forget, Ndolo L'amour tickets are still available at Alex Braise for only 8000 FCFA instead of 10,000 FCFA!&nbsp;&nbsp;•&nbsp;&nbsp;`,
+};
+
+const applyBirthdayBanner = () => {
+  const html = BIRTHDAY_BANNER_HTML[currentLang] || BIRTHDAY_BANNER_HTML.fr;
+  document.querySelectorAll('.birthday-banner-track > span').forEach((el) => {
+    el.innerHTML = html;
+  });
+};
+
 const applyLanguage = () => {
   document.documentElement.lang = currentLang;
 
@@ -149,6 +165,8 @@ const applyLanguage = () => {
     if (!searchInput.dataset.fr) searchInput.dataset.fr = searchInput.placeholder;
     searchInput.placeholder = t(searchInput.dataset.fr);
   }
+
+  applyBirthdayBanner();
 
   document.querySelectorAll('.lang-toggle').forEach((btn) => {
     btn.textContent = currentLang === 'en' ? 'Français' : 'English';
