@@ -136,30 +136,20 @@ const I18N_SELECTORS = [
   '.btn-add-cart',
 ].join(', ');
 
-// Birthday banner: the message text is editable live from admin.html (saved
-// to Firestore). It's wrapped in fixed SVG icons here, so it's applied as
-// HTML rather than run through the plain-text translation engine above.
-// Fill these in once the Firebase project exists (see admin.html) — until
-// then the banner just keeps showing the default text below.
-const FIREBASE_PROJECT_ID = 'PASTE_YOUR_PROJECT_ID_HERE';
-const FIREBASE_API_KEY = 'PASTE_YOUR_WEB_API_KEY_HERE';
-const FIREBASE_READY = !FIREBASE_PROJECT_ID.startsWith('PASTE_') && !FIREBASE_API_KEY.startsWith('PASTE_');
-const BANNER_DOC_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/siteContent/banner?key=${FIREBASE_API_KEY}`;
+// Promo banner: Ndolo L'amour ticket offer, runs until Oct 14, 2026 then
+// removes itself automatically. The sentence is wrapped in a fixed SVG
+// icon here, so it's applied as HTML rather than through the plain-text
+// translation engine above.
+const BANNER_EXPIRES = new Date('2026-10-15T00:00:00');
 
 const BIRTHDAY_BANNER_ICON_GIFT = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="1"/><rect x="3" y="7" width="18" height="4" rx="1"/><rect x="11" y="7" width="2" height="13"/><path d="M12 7c0 0-3 0-4-1.5C7.2 4.3 8.3 3 9.8 3 11 3 12 4.5 12 7Z"/><path d="M12 7c0 0 3 0 4-1.5C16.8 4.3 15.7 3 14.2 3 13 3 12 4.5 12 7Z"/></svg>';
-const BIRTHDAY_BANNER_ICON_CAKE = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="13" width="16" height="8" rx="1.5"/><rect x="4" y="10" width="16" height="3.5" rx="1.5"/><rect x="11" y="6" width="2" height="4"/><path d="M12 2c1.2 1.2 1.2 2.6 0 3.8-1.2-1.2-1.2-2.6 0-3.8Z"/></svg>';
 
-const DEFAULT_BANNER_MESSAGES = {
-  fr: "Aujourd'hui, nous célébrons un an de plus pour notre PDG ! Un homme généreux, visionnaire et dévoué, qui porte Alex Braise avec passion et bienveillance chaque jour. Joyeux anniversaire, Patron ! N'oubliez pas que les tickets de Ndolo L'amour sont toujours disponibles chez Alex Braise à 8000 FCFA seulement au lieu de 10 000 FCFA !",
-  en: "Today we celebrate another year of our CEO! A generous, visionary and dedicated man who leads Alex Braise with passion and kindness every single day. Happy Birthday, Boss! Don't forget, Ndolo L'amour tickets are still available at Alex Braise for only 8000 FCFA instead of 10,000 FCFA!",
+const BANNER_MESSAGES = {
+  fr: "N'oubliez pas que les tickets de Ndolo L'amour sont disponibles jusqu'au 14 octobre à 8000 FCFA seulement au lieu de 10 000 FCFA !",
+  en: "Don't forget, Ndolo L'amour tickets are available until October 14th for only 8000 FCFA instead of 10,000 FCFA!",
 };
 
-let bannerMessages = { ...DEFAULT_BANNER_MESSAGES };
-
-const buildBannerHtml = (lang) => {
-  const msg = bannerMessages[lang] || bannerMessages.fr;
-  return `${BIRTHDAY_BANNER_ICON_GIFT} ${msg} ${BIRTHDAY_BANNER_ICON_CAKE}&nbsp;&nbsp;•&nbsp;&nbsp;`;
-};
+const buildBannerHtml = (lang) => `${BIRTHDAY_BANNER_ICON_GIFT} ${BANNER_MESSAGES[lang] || BANNER_MESSAGES.fr}&nbsp;&nbsp;•&nbsp;&nbsp;`;
 
 const applyBirthdayBanner = () => {
   const html = buildBannerHtml(currentLang);
@@ -168,24 +158,14 @@ const applyBirthdayBanner = () => {
   });
 };
 
-// Pull the live-edited banner text (set via admin.html) so every visitor
-// sees the latest message, not just whoever last edited it in their browser.
-const fetchLiveBannerMessages = async () => {
-  if (!FIREBASE_READY) return;
-  try {
-    const res = await fetch(BANNER_DOC_URL);
-    if (!res.ok) return;
-    const doc = await res.json();
-    const fr = doc?.fields?.fr?.stringValue;
-    const en = doc?.fields?.en?.stringValue;
-    if (fr || en) {
-      bannerMessages = { fr: fr || DEFAULT_BANNER_MESSAGES.fr, en: en || DEFAULT_BANNER_MESSAGES.en };
-      applyBirthdayBanner();
-    }
-  } catch (err) {
-    // Offline or Firebase not reachable — keep showing the default text.
-  }
+// Once the offer's end date passes, drop the banner entirely so it doesn't
+// need to be removed by hand later.
+const removeBannerIfExpired = () => {
+  if (new Date() < BANNER_EXPIRES) return;
+  document.querySelector('.birthday-banner')?.remove();
+  document.body.classList.remove('has-birthday-banner');
 };
+removeBannerIfExpired();
 
 const applyLanguage = () => {
   document.documentElement.lang = currentLang;
@@ -707,4 +687,3 @@ document.querySelectorAll('.lang-toggle').forEach((btn) => {
   btn.addEventListener('click', toggleLanguage);
 });
 applyLanguage();
-fetchLiveBannerMessages();
