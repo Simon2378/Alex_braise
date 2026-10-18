@@ -136,17 +136,18 @@ const I18N_SELECTORS = [
   '.btn-add-cart',
 ].join(', ');
 
-// Promo banner: Ndolo L'amour ticket offer, runs until Oct 14, 2026 then
-// removes itself automatically. The sentence is wrapped in a fixed SVG
-// icon here, so it's applied as HTML rather than through the plain-text
-// translation engine above.
-const BANNER_EXPIRES = new Date('2026-10-15T00:00:00');
+// Promo banner. The sentence is wrapped in a fixed SVG icon here, so it's
+// applied as HTML rather than through the plain-text translation engine
+// above. Set BANNER_EXPIRES to an ISO date/time string (e.g.
+// '2026-11-01T00:00:00') to have the banner remove itself automatically
+// once that date passes; leave it null to run with no end date.
+const BANNER_EXPIRES = null;
 
 const BIRTHDAY_BANNER_ICON_GIFT = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="1"/><rect x="3" y="7" width="18" height="4" rx="1"/><rect x="11" y="7" width="2" height="13"/><path d="M12 7c0 0-3 0-4-1.5C7.2 4.3 8.3 3 9.8 3 11 3 12 4.5 12 7Z"/><path d="M12 7c0 0 3 0 4-1.5C16.8 4.3 15.7 3 14.2 3 13 3 12 4.5 12 7Z"/></svg>';
 
 const BANNER_MESSAGES = {
-  fr: "N'oubliez pas que les tickets de Ndolo L'amour sont disponibles jusqu'au 14 octobre à 8000 FCFA seulement au lieu de 10 000 FCFA !",
-  en: "Don't forget, Ndolo L'amour tickets are available until October 14th for only 8000 FCFA instead of 10,000 FCFA!",
+  fr: 'Promo spéciale à notre restaurant de Bonamoussadi : 3 Shawarmas à 2500 FCFA seulement !',
+  en: 'Special promo at our Bonamoussadi location: 3 Shawarmas for only 2500 FCFA!',
 };
 
 const buildBannerHtml = (lang) => `${BIRTHDAY_BANNER_ICON_GIFT} ${BANNER_MESSAGES[lang] || BANNER_MESSAGES.fr}&nbsp;&nbsp;•&nbsp;&nbsp;`;
@@ -158,10 +159,10 @@ const applyBirthdayBanner = () => {
   });
 };
 
-// Once the offer's end date passes, drop the banner entirely so it doesn't
-// need to be removed by hand later.
+// Once the offer's end date passes (if one is set), drop the banner
+// entirely so it doesn't need to be removed by hand later.
 const removeBannerIfExpired = () => {
-  if (new Date() < BANNER_EXPIRES) return;
+  if (!BANNER_EXPIRES || new Date() < new Date(BANNER_EXPIRES)) return;
   document.querySelector('.birthday-banner')?.remove();
   document.body.classList.remove('has-birthday-banner');
 };
