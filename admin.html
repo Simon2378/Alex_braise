@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — Alex Braise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, var(--color-dark), var(--color-dark-soft));
+  }
+
+  .admin-wrap {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .admin-card {
+    background: var(--color-cream);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 36px;
+    margin-bottom: 24px;
+  }
+
+  .admin-card h1 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+  }
+
+  .admin-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  .admin-sub {
+    font-size: 0.88rem;
+    color: var(--color-dark-soft);
+    opacity: 0.75;
+    margin-bottom: 24px;
+  }
+
+  .admin-field { margin-bottom: 18px; }
+
+  .admin-field label {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    color: var(--color-dark-soft);
+  }
+
+  .admin-field input, .admin-field textarea {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    border: 2px solid rgba(28, 20, 16, 0.12);
+    background: #fff;
+    color: var(--color-dark);
+    resize: vertical;
+  }
+
+  .admin-field textarea { min-height: 80px; line-height: 1.5; }
+  .admin-field input:focus, .admin-field textarea:focus { outline: none; border-color: var(--color-gold); }
+
+  .admin-btn { width: 100%; }
+
+  .admin-status { margin-top: 14px; font-size: 0.88rem; font-weight: 600; min-height: 1.2em; }
+  .admin-status.ok { color: #2f7d3a; }
+  .admin-status.err { color: var(--color-red); }
+  .admin-status.warn { color: var(--color-orange); }
+
+  #admin-login { text-align: center; }
+  #admin-dashboard { display: none; }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  @media (min-width: 560px) {
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .stat-tile {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    border: 1px solid rgba(28, 20, 16, 0.08);
+  }
+
+  .stat-tile .stat-label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-dark-soft);
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+  }
+
+  .stat-tile .stat-total {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-red);
+    margin-bottom: 4px;
+  }
+
+  .stat-tile .stat-breakdown {
+    font-size: 0.78rem;
+    color: var(--color-dark-soft);
+    opacity: 0.8;
+  }
+
+  .admin-refresh {
+    display: block;
+    margin: 4px auto 0;
+    background: none;
+    border: none;
+    color: var(--color-dark-soft);
+    opacity: 0.7;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+  }
+
+  .admin-logout {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--color-dark-soft);
+    opacity: 0.7;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<div class="admin-wrap">
+
+  <div class="admin-card" id="admin-login">
+    <h1>Accès Admin</h1>
+    <p class="admin-sub">Entrez le mot de passe pour voir les statistiques et modifier l'annonce.</p>
+    <div class="admin-field">
+      <label for="admin-password">Mot de passe</label>
+      <input type="password" id="admin-password" inputmode="numeric" autocomplete="off" placeholder="••••">
+    </div>
+    <button type="button" class="btn btn-primary admin-btn" id="admin-login-btn">Entrer</button>
+    <div class="admin-status err" id="admin-login-status"></div>
+  </div>
+
+  <div id="admin-dashboard">
+
+    <div class="admin-card">
+      <h2>Statistiques de visites</h2>
+      <p class="admin-sub">QR code scanné, visiteurs venus de Google, et le reste — comptés automatiquement à chaque visite du site.</p>
+      <div class="stat-grid" id="stat-grid">
+        <div class="stat-tile"><div class="stat-label">Aujourd'hui</div><div class="stat-total">—</div></div>
+        <div class="stat-tile"><div class="stat-label">7 jours</div><div class="stat-total">—</div></div>
+        <div class="stat-tile"><div class="stat-label">30 jours</div><div class="stat-total">—</div></div>
+        <div class="stat-tile"><div class="stat-label">3 mois</div><div class="stat-total">—</div></div>
+        <div class="stat-tile"><div class="stat-label">6 mois</div><div class="stat-total">—</div></div>
+        <div class="stat-tile"><div class="stat-label">1 an</div><div class="stat-total">—</div></div>
+      </div>
+      <button type="button" class="admin-refresh" id="admin-refresh-btn">Actualiser</button>
+      <div class="admin-status" id="admin-stats-status"></div>
+    </div>
+
+    <div class="admin-card">
+      <h2>Annonce (bannière défilante)</h2>
+      <p class="admin-sub">S'affiche en bas de la page d'accueil. Laissez les deux champs vides pour qu'aucune bannière ne s'affiche.</p>
+
+      <div class="admin-field">
+        <label for="banner-fr">Message en Français</label>
+        <textarea id="banner-fr" placeholder="Ex : Promo spéciale ce week-end..."></textarea>
+      </div>
+      <div class="admin-field">
+        <label for="banner-en">Message en Anglais</label>
+        <textarea id="banner-en" placeholder="Ex : Special promo this weekend..."></textarea>
+      </div>
+
+      <button type="button" class="btn btn-primary admin-btn" id="admin-save-btn">Enregistrer</button>
+      <div class="admin-status" id="admin-save-status"></div>
+    </div>
+
+    <span class="admin-logout" id="admin-logout-btn">Se déconnecter</span>
+  </div>
+
+</div>
+
+<script>
+  // Must match script.js on the public site.
+  const VERCEL_API_BASE = 'PASTE_YOUR_VERCEL_URL_HERE';
+  const API_READY = !VERCEL_API_BASE.startsWith('PASTE_');
+
+  const SESSION_KEY = 'alexbraise_admin_password';
+
+  const loginScreen = document.getElementById('admin-login');
+  const dashboard = document.getElementById('admin-dashboard');
+  const passwordInput = document.getElementById('admin-password');
+  const loginBtn = document.getElementById('admin-login-btn');
+  const loginStatus = document.getElementById('admin-login-status');
+  const statGrid = document.getElementById('stat-grid');
+  const statsStatus = document.getElementById('admin-stats-status');
+  const refreshBtn = document.getElementById('admin-refresh-btn');
+  const frField = document.getElementById('banner-fr');
+  const enField = document.getElementById('banner-en');
+  const saveBtn = document.getElementById('admin-save-btn');
+  const saveStatus = document.getElementById('admin-save-status');
+  const logoutBtn = document.getElementById('admin-logout-btn');
+
+  const getPassword = () => sessionStorage.getItem(SESSION_KEY) || '';
+
+  const setStatus = (el, text, kind) => {
+    el.textContent = text;
+    el.className = 'admin-status' + (kind ? ' ' + kind : '');
+  };
+
+  const WINDOW_LABELS = [
+    ['today', "Aujourd'hui"],
+    ['last7', '7 jours'],
+    ['last30', '30 jours'],
+    ['last90', '3 mois'],
+    ['last180', '6 mois'],
+    ['last365', '1 an'],
+  ];
+
+  const renderStats = (windows) => {
+    statGrid.innerHTML = '';
+    WINDOW_LABELS.forEach(([key, label]) => {
+      const w = (windows && windows[key]) || { qr: 0, google: 0, other: 0, total: 0 };
+      const tile = document.createElement('div');
+      tile.className = 'stat-tile';
+      tile.innerHTML = `
+        <div class="stat-label">${label}</div>
+        <div class="stat-total">${w.total}</div>
+        <div class="stat-breakdown">QR ${w.qr} · Google ${w.google} · Autre ${w.other}</div>
+      `;
+      statGrid.appendChild(tile);
+    });
+  };
+
+  const loadStats = async () => {
+    if (!API_READY) {
+      setStatus(statsStatus, 'URL de l\'API non configurée (VERCEL_API_BASE).', 'warn');
+      return;
+    }
+    setStatus(statsStatus, 'Chargement...', '');
+    try {
+      const res = await fetch(`${VERCEL_API_BASE}/api/stats`, {
+        headers: { 'x-admin-password': getPassword() },
+      });
+      if (res.status === 401) {
+        setStatus(statsStatus, 'Mot de passe refusé par le serveur.', 'err');
+        return;
+      }
+      if (!res.ok) throw new Error('request failed');
+      const data = await res.json();
+      renderStats(data.windows);
+      if (data.configured === false) {
+        setStatus(statsStatus, 'Stockage non configuré côté serveur (KV_REST_API_URL / TOKEN manquants).', 'warn');
+      } else {
+        setStatus(statsStatus, '', '');
+      }
+    } catch (err) {
+      setStatus(statsStatus, 'Impossible de charger les statistiques.', 'err');
+    }
+  };
+
+  const loadBanner = async () => {
+    if (!API_READY) return;
+    try {
+      const res = await fetch(`${VERCEL_API_BASE}/api/banner`);
+      if (!res.ok) return;
+      const data = await res.json();
+      frField.value = data.fr || '';
+      enField.value = data.en || '';
+    } catch (err) {
+      // leave fields empty
+    }
+  };
+
+  const saveBanner = async () => {
+    if (!API_READY) {
+      setStatus(saveStatus, 'URL de l\'API non configurée (VERCEL_API_BASE).', 'warn');
+      return;
+    }
+    saveBtn.disabled = true;
+    setStatus(saveStatus, 'Enregistrement...', '');
+    try {
+      const res = await fetch(`${VERCEL_API_BASE}/api/banner`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': getPassword() },
+        body: JSON.stringify({ fr: frField.value.trim(), en: enField.value.trim() }),
+      });
+      if (res.status === 401) {
+        setStatus(saveStatus, 'Mot de passe refusé par le serveur.', 'err');
+        return;
+      }
+      if (!res.ok) throw new Error('request failed');
+      setStatus(saveStatus, 'Enregistré ✓ — visible pour tous les visiteurs.', 'ok');
+    } catch (err) {
+      setStatus(saveStatus, 'Erreur lors de l\'enregistrement. Réessayez.', 'err');
+    } finally {
+      saveBtn.disabled = false;
+    }
+  };
+
+  // The password is only ever verified by the server (ADMIN_PASSWORD env
+  // var on Vercel) — nothing correct is hardcoded here to check against.
+  const attemptLogin = async (password) => {
+    loginStatus.textContent = '';
+    loginBtn.disabled = true;
+    try {
+      const res = await fetch(`${VERCEL_API_BASE}/api/stats`, {
+        headers: { 'x-admin-password': password },
+      });
+      if (res.status === 401) {
+        loginStatus.textContent = 'Mot de passe incorrect.';
+        return;
+      }
+      if (!res.ok) throw new Error('request failed');
+      const data = await res.json();
+      sessionStorage.setItem(SESSION_KEY, password);
+      loginScreen.style.display = 'none';
+      dashboard.style.display = 'block';
+      renderStats(data.windows);
+      setStatus(
+        statsStatus,
+        data.configured === false ? 'Stockage non configuré côté serveur (KV_REST_API_URL / TOKEN manquants).' : '',
+        data.configured === false ? 'warn' : ''
+      );
+      loadBanner();
+    } catch (err) {
+      loginStatus.textContent = API_READY ? 'Impossible de contacter le serveur.' : "URL de l'API non configurée dans ce fichier.";
+    } finally {
+      loginBtn.disabled = false;
+    }
+  };
+
+  loginBtn.addEventListener('click', () => attemptLogin(passwordInput.value));
+  passwordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') loginBtn.click(); });
+  refreshBtn.addEventListener('click', loadStats);
+  saveBtn.addEventListener('click', saveBanner);
+
+  logoutBtn.addEventListener('click', () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    dashboard.style.display = 'none';
+    loginScreen.style.display = 'block';
+    passwordInput.value = '';
+  });
+
+  const savedPassword = getPassword();
+  if (savedPassword) attemptLogin(savedPassword);
+</script>
+
+</body>
+</html>

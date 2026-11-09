@@ -136,37 +136,75 @@ const I18N_SELECTORS = [
   '.btn-add-cart',
 ].join(', ');
 
-// Promo banner. The sentence is wrapped in a fixed SVG icon here, so it's
-// applied as HTML rather than through the plain-text translation engine
-// above. Set BANNER_EXPIRES to an ISO date/time string (e.g.
-// '2026-11-01T00:00:00') to have the banner remove itself automatically
-// once that date passes; leave it null to run with no end date.
-const BANNER_EXPIRES = null;
+// Announcement banner + visit tracking, both backed by a small Vercel API
+// (see /api in the repo). Paste the deployed project's URL here once it
+// exists — everything below silently no-ops until then.
+const VERCEL_API_BASE = 'PASTE_YOUR_VERCEL_URL_HERE';
+const API_READY = !VERCEL_API_BASE.startsWith('PASTE_');
 
 const BIRTHDAY_BANNER_ICON_GIFT = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="1"/><rect x="3" y="7" width="18" height="4" rx="1"/><rect x="11" y="7" width="2" height="13"/><path d="M12 7c0 0-3 0-4-1.5C7.2 4.3 8.3 3 9.8 3 11 3 12 4.5 12 7Z"/><path d="M12 7c0 0 3 0 4-1.5C16.8 4.3 15.7 3 14.2 3 13 3 12 4.5 12 7Z"/></svg>';
 
-const BANNER_MESSAGES = {
-  fr: 'Promo spéciale à notre restaurant de Bonamoussadi : 3 Shawarmas à 2500 FCFA seulement !',
-  en: 'Special promo at our Bonamoussadi location: 3 Shawarmas for only 2500 FCFA!',
-};
+// Empty until the admin page sets something — the banner stays hidden
+// until there's an actual announcement to show.
+let liveBannerMessages = { fr: '', en: '' };
 
-const buildBannerHtml = (lang) => `${BIRTHDAY_BANNER_ICON_GIFT} ${BANNER_MESSAGES[lang] || BANNER_MESSAGES.fr}&nbsp;&nbsp;•&nbsp;&nbsp;`;
+const buildBannerHtml = (lang) => {
+  const msg = liveBannerMessages[lang] || liveBannerMessages.fr || liveBannerMessages.en;
+  return msg ? `${BIRTHDAY_BANNER_ICON_GIFT} ${msg}&nbsp;&nbsp;•&nbsp;&nbsp;` : '';
+};
 
 const applyBirthdayBanner = () => {
   const html = buildBannerHtml(currentLang);
-  document.querySelectorAll('.birthday-banner-track > span').forEach((el) => {
-    el.innerHTML = html;
-  });
+  const bannerEl = document.querySelector('.birthday-banner');
+  if (!bannerEl) return;
+  if (html) {
+    document.querySelectorAll('.birthday-banner-track > span').forEach((el) => { el.innerHTML = html; });
+    bannerEl.style.display = '';
+    document.body.classList.add('has-birthday-banner');
+  } else {
+    bannerEl.style.display = 'none';
+    document.body.classList.remove('has-birthday-banner');
+  }
 };
 
-// Once the offer's end date passes (if one is set), drop the banner
-// entirely so it doesn't need to be removed by hand later.
-const removeBannerIfExpired = () => {
-  if (!BANNER_EXPIRES || new Date() < new Date(BANNER_EXPIRES)) return;
-  document.querySelector('.birthday-banner')?.remove();
-  document.body.classList.remove('has-birthday-banner');
+// Pull whatever announcement is currently set in the admin page so every
+// visitor sees it, with no code changes needed to post or clear it.
+const fetchLiveBanner = async () => {
+  if (!API_READY) return;
+  try {
+    const res = await fetch(`${VERCEL_API_BASE}/api/banner`);
+    if (!res.ok) return;
+    const data = await res.json();
+    liveBannerMessages = { fr: data?.fr || '', en: data?.en || '' };
+    applyBirthdayBanner();
+  } catch (err) {
+    // Offline or API unreachable — banner just stays hidden.
+  }
 };
-removeBannerIfExpired();
+
+// Visit tracking: QR scans (?src=qr), Google (?src=google or a Google
+// referrer), everything else. Fire-and-forget, never blocks the page.
+const trackVisit = () => {
+  if (!API_READY) return;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const tagged = params.get('src');
+    let source = 'other';
+    if (tagged === 'qr') source = 'qr';
+    else if (tagged === 'google') source = 'google';
+    else if (/google\./i.test(document.referrer || '')) source = 'google';
+
+    fetch(`${VERCEL_API_BASE}/api/track`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch (err) {
+    // Never let tracking break the page.
+  }
+};
+trackVisit();
 
 const applyLanguage = () => {
   document.documentElement.lang = currentLang;
@@ -688,3 +726,4 @@ document.querySelectorAll('.lang-toggle').forEach((btn) => {
   btn.addEventListener('click', toggleLanguage);
 });
 applyLanguage();
+fetchLiveBanner();
