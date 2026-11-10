@@ -112,6 +112,17 @@
   .brand img { width: 40px; height: 40px; object-fit: cover; border-radius: 10px; }
   .brand strong { display: block; font-size: 0.95rem; line-height: 1.2; font-family: 'Poppins', sans-serif; }
   .brand span { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.04em; text-transform: uppercase; }
+  .nav-toggle {
+    display: none;
+    margin-left: auto;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    padding: 8px;
+    color: #fff;
+  }
+  .nav-toggle svg { width: 20px; height: 20px; display: block; }
+  .nav-toggle:hover { border-color: var(--gold); color: var(--gold); }
   .nav { margin-top: 18px; display: flex; flex-direction: column; gap: 4px; }
   .nav-title { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); padding: 10px 12px 4px; }
   .nav a {
@@ -306,19 +317,17 @@
   @media (max-width: 1100px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 860px) {
     .app { grid-template-columns: minmax(0, 1fr); }
-    .sidebar { position: static; height: auto; flex-direction: column; align-items: stretch; padding: 12px 16px; gap: 10px; }
+    .sidebar { position: static; height: auto; flex-direction: column; align-items: stretch; padding: 12px 16px; gap: 0; }
     .brand { border: none; padding: 0; }
+    .nav-toggle { display: flex; }
     .nav {
-      margin-top: 0;
-      flex-direction: row;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      gap: 6px;
-      padding-bottom: 2px;
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
-    .nav-title { display: none; }
-    .nav a { white-space: nowrap; flex-shrink: 0; }
-    .account { margin: 0; padding: 0; border: none; flex-wrap: nowrap; }
+    .sidebar.nav-open .nav { display: flex; }
+    .account { margin: 10px 0 0; padding: 10px 0 0; border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: nowrap; }
     .account-info { display: none; }
     .logout { flex-basis: auto; padding: 6px 10px; }
     .main { padding: 20px 16px 40px; }
@@ -389,6 +398,9 @@
           <strong>Alex Braise</strong>
           <span>Admin</span>
         </div>
+        <button type="button" class="nav-toggle" id="nav-toggle-btn" aria-label="Menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
       </div>
       <nav class="nav" id="side-nav">
         <div class="nav-title" data-i18n="navAnalytics"></div>
@@ -1275,15 +1287,28 @@
   });
   $('refresh').addEventListener('click', refresh);
   document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => setLanguage(b.dataset.lang)));
+
+  const sidebarEl = document.querySelector('.sidebar');
+  const closeMobileNav = () => {
+    sidebarEl.classList.remove('nav-open');
+    $('nav-toggle-btn').setAttribute('aria-expanded', 'false');
+  };
+  $('nav-toggle-btn').addEventListener('click', () => {
+    const isOpen = sidebarEl.classList.toggle('nav-open');
+    $('nav-toggle-btn').setAttribute('aria-expanded', String(isOpen));
+  });
+
   document.querySelectorAll('[data-channel]').forEach(el => el.addEventListener('click', e => {
     e.preventDefault();
     setChannel(el.dataset.channel);
+    closeMobileNav();
   }));
   document.querySelectorAll('[data-view]').forEach(el => el.addEventListener('click', e => {
     e.preventDefault();
     state.view = el.dataset.view;
     render();
     if (state.view === 'banner') loadBanner();
+    closeMobileNav();
   }));
   $('modes').addEventListener('click', e => {
     const btn = e.target.closest('button[data-mode]');
