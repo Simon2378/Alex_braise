@@ -74,6 +74,26 @@
   .admin-field textarea { min-height: 80px; line-height: 1.5; }
   .admin-field input:focus, .admin-field textarea:focus { outline: none; border-color: var(--color-gold); }
 
+  .password-wrap { position: relative; }
+  .password-wrap input { padding-right: 44px; }
+  .password-toggle {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--color-dark-soft);
+    opacity: 0.55;
+  }
+  .password-toggle:hover { opacity: 1; }
+  .password-toggle .icon { width: 20px; height: 20px; }
+
   .admin-btn { width: 100%; }
 
   .admin-status { margin-top: 14px; font-size: 0.88rem; font-weight: 600; min-height: 1.2em; }
@@ -160,7 +180,12 @@
     <p class="admin-sub">Entrez le mot de passe pour voir les statistiques et modifier l'annonce.</p>
     <div class="admin-field">
       <label for="admin-password">Mot de passe</label>
-      <input type="password" id="admin-password" autocomplete="off" placeholder="••••••••">
+      <div class="password-wrap">
+        <input type="password" id="admin-password" autocomplete="off" placeholder="••••••••">
+        <button type="button" class="password-toggle" id="password-toggle-btn" aria-label="Afficher le mot de passe">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill-rule="evenodd" id="password-toggle-icon"><path d="M1 12C1 12 5 5 12 5C19 5 23 12 23 12C23 12 19 19 12 19C5 19 1 12 1 12Z M15.5 12a3.5 3.5 0 1 1-7 0a3.5 3.5 0 1 1 7 0Z"/></svg>
+        </button>
+      </div>
     </div>
     <button type="button" class="btn btn-primary admin-btn" id="admin-login-btn">Entrer</button>
     <div class="admin-status err" id="admin-login-status"></div>
@@ -213,6 +238,8 @@
   const loginScreen = document.getElementById('admin-login');
   const dashboard = document.getElementById('admin-dashboard');
   const passwordInput = document.getElementById('admin-password');
+  const passwordToggleBtn = document.getElementById('password-toggle-btn');
+  const passwordToggleIcon = document.getElementById('password-toggle-icon');
   const loginBtn = document.getElementById('admin-login-btn');
   const loginStatus = document.getElementById('admin-login-status');
   const statGrid = document.getElementById('stat-grid');
@@ -343,6 +370,16 @@
       loginBtn.disabled = false;
     }
   };
+
+  const EYE_OPEN = '<path d="M1 12C1 12 5 5 12 5C19 5 23 12 23 12C23 12 19 19 12 19C5 19 1 12 1 12Z M15.5 12a3.5 3.5 0 1 1-7 0a3.5 3.5 0 1 1 7 0Z"/>';
+  const EYE_CLOSED = '<path d="M1 12C1 12 5 5 12 5C19 5 23 12 23 12C23 12 19 19 12 19C5 19 1 12 1 12Z M15.5 12a3.5 3.5 0 1 1-7 0a3.5 3.5 0 1 1 7 0Z"/><path d="M3.5 3.5 20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>';
+
+  passwordToggleBtn.addEventListener('click', () => {
+    const show = passwordInput.type === 'password';
+    passwordInput.type = show ? 'text' : 'password';
+    passwordToggleIcon.innerHTML = show ? EYE_CLOSED : EYE_OPEN;
+    passwordToggleBtn.setAttribute('aria-label', show ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+  });
 
   loginBtn.addEventListener('click', () => attemptLogin(passwordInput.value));
   passwordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') loginBtn.click(); });
