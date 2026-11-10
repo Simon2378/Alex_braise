@@ -3,399 +3,1310 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>Admin — Alex Braise</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/jpeg" href="images/IMG-20260822-WA0043.jpg">
+<title>Tableau de bord | Alex Braise</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --navy: #1C1410;
+    --navy-soft: #2A1F18;
+    --gold: #F2A73B;
+    --gold-soft: rgba(242, 167, 59, 0.16);
+    --bg: #f4f5f8;
+    --surface: #ffffff;
+    --surface-2: #f8f9fb;
+    --text: #1C1410;
+    --text-2: #5a5048;
+    --muted: #8a7f73;
+    --border: #e6e4e1;
+    --grid: #eeedea;
+    --qr: #2563eb;
+    --links: #F2A73B;
+    --hover-ring: rgba(26, 20, 16, 0.08);
+    --good: #15803d;
+    --good-bg: #e8f6ee;
+    --bad: #b91c1c;
+    --bad-bg: #fdecec;
+    --shadow: 0 1px 2px rgba(26, 20, 16, 0.04), 0 4px 16px rgba(26, 20, 16, 0.05);
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
+    font-family: 'Inter', -apple-system, Segoe UI, sans-serif;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, var(--color-dark), var(--color-dark-soft));
+    -webkit-font-smoothing: antialiased;
   }
+  h1, h2, h3 { font-family: 'Poppins', sans-serif; }
+  button { font: inherit; cursor: pointer; }
+  a { color: inherit; }
+  [hidden] { display: none !important; }
 
-  .admin-wrap {
+  /* ---------- Login ---------- */
+  .login-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px 16px;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(242, 167, 59, 0.2), transparent 40%),
+      linear-gradient(135deg, #1C1410 0%, #3a241a 100%);
+  }
+  .login-card {
     width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
+    max-width: 400px;
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 36px 32px 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
   }
-
-  .admin-card {
-    background: var(--color-cream);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    padding: 36px;
-    margin-bottom: 24px;
-  }
-
-  .admin-card h1 {
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    margin-bottom: 4px;
-  }
-
-  .admin-card h2 {
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    margin-bottom: 16px;
-  }
-
-  .admin-sub {
-    font-size: 0.88rem;
-    color: var(--color-dark-soft);
-    opacity: 0.75;
-    margin-bottom: 24px;
-  }
-
-  .admin-field { margin-bottom: 18px; }
-
-  .admin-field label {
-    display: block;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 0.85rem;
-    margin-bottom: 8px;
-    color: var(--color-dark-soft);
-  }
-
-  .admin-field input, .admin-field textarea {
-    width: 100%;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    padding: 12px 14px;
-    border-radius: var(--radius-md);
-    border: 2px solid rgba(28, 20, 16, 0.12);
-    background: #fff;
-    color: var(--color-dark);
-    resize: vertical;
-  }
-
-  .admin-field textarea { min-height: 80px; line-height: 1.5; }
-  .admin-field input:focus, .admin-field textarea:focus { outline: none; border-color: var(--color-gold); }
-
+  .login-card img.logo { width: 68px; height: 68px; object-fit: cover; border-radius: 16px; margin: 0 auto 12px; }
+  .login-card h1 { font-size: 1.3rem; color: var(--text); }
+  .login-card .subtitle { color: var(--muted); font-size: 0.9rem; margin: 4px 0 26px; }
+  .field { text-align: left; margin-bottom: 16px; }
+  .field label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
   .password-wrap { position: relative; }
-  .password-wrap input { padding-right: 44px; }
+  .field input {
+    width: 100%;
+    font: inherit;
+    padding: 12px 48px 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface-2);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .field input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
   .password-toggle {
-    position: absolute;
-    right: 4px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    padding: 8px;
-    cursor: pointer;
-    color: var(--color-dark-soft);
-    opacity: 0.55;
+    position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+    display: flex; align-items: center; justify-content: center;
+    background: none; border: none; padding: 8px; cursor: pointer;
+    color: var(--muted); opacity: 0.65;
   }
   .password-toggle:hover { opacity: 1; }
-  .password-toggle .icon { width: 20px; height: 20px; }
+  .password-toggle svg { width: 20px; height: 20px; }
+  .btn-primary {
+    width: 100%; border: none; border-radius: 10px; padding: 12px 18px;
+    background: var(--gold); color: #1C1410; font-weight: 700;
+    transition: filter 0.15s;
+  }
+  .btn-primary:hover { filter: brightness(1.05); }
+  .btn-primary:disabled { opacity: 0.7; cursor: wait; }
+  .login-error { color: var(--bad); font-size: 0.88rem; margin-top: 12px; min-height: 1.2em; }
+  .login-foot { margin-top: 18px; font-size: 0.8rem; color: var(--muted); }
 
-  .admin-btn { width: 100%; }
+  /* ---------- App layout ---------- */
+  .app { display: grid; grid-template-columns: 248px minmax(0, 1fr); min-height: 100vh; }
+  .sidebar {
+    background: var(--navy); color: #fff;
+    display: flex; flex-direction: column; padding: 22px 16px;
+    position: sticky; top: 0; height: 100vh;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 0 8px 22px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .brand img { width: 40px; height: 40px; object-fit: cover; border-radius: 10px; }
+  .brand strong { display: block; font-size: 0.95rem; line-height: 1.2; font-family: 'Poppins', sans-serif; }
+  .brand span { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.04em; text-transform: uppercase; }
+  .nav { margin-top: 18px; display: flex; flex-direction: column; gap: 4px; }
+  .nav-title { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); padding: 10px 12px 4px; }
+  .nav a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: 10px;
+    text-decoration: none; color: rgba(255,255,255,0.72); font-size: 0.92rem;
+  }
+  .nav a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+  .nav a.active { background: rgba(242,167,59,0.16); color: var(--gold); font-weight: 600; }
+  .nav svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .account {
+    margin-top: auto; display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 16px 8px 0; border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--gold); color: var(--navy);
+    display: grid; place-items: center; font-weight: 700; flex-shrink: 0;
+  }
+  .account-info { min-width: 0; flex: 1; }
+  .account-info strong { display: block; font-size: 0.9rem; }
+  .account-info span { font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+  .logout {
+    flex-basis: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+    background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.85);
+    border-radius: 9px; padding: 8px 10px; font-size: 0.85rem;
+  }
+  .logout svg { width: 16px; height: 16px; }
+  .logout:hover { border-color: var(--gold); color: var(--gold); }
 
+  .main { padding: 28px 32px 48px; min-width: 0; }
+  .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+  .topbar h2 { font-size: 1.5rem; }
+  .topbar p { color: var(--muted); font-size: 0.92rem; margin-top: 2px; }
+  .topbar-actions { display: flex; align-items: center; gap: 12px; }
+  .updated { color: var(--muted); font-size: 0.82rem; }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface); color: var(--text); border: 1px solid var(--border);
+    border-radius: 10px; padding: 8px 14px; font-size: 0.88rem; font-weight: 600;
+  }
+  .btn-ghost:hover { border-color: var(--gold); }
+  .btn-ghost svg { width: 16px; height: 16px; }
+  .btn-ghost.loading svg { animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+  .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .swatch.qr { background: var(--qr); }
+  .swatch.links { background: var(--links); }
+
+  .channels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  .channel {
+    text-align: left; border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow);
+    position: relative; transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .channel:hover { border-color: var(--muted); }
+  .channel.active { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft), var(--shadow); }
+  .channel .head { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 700; color: var(--text-2); }
+  .channel .icon { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; background: var(--surface-2); color: var(--text-2); }
+  .channel .icon svg { width: 17px; height: 17px; }
+  .channel.active .icon { background: var(--gold-soft); color: var(--gold); }
+  .channel .value { font-size: 1.9rem; font-weight: 700; margin-top: 10px; font-variant-numeric: tabular-nums; }
+  .channel .meta { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+  .channel .share-line { height: 4px; border-radius: 2px; background: var(--grid); margin-top: 12px; overflow: hidden; }
+  .channel .share-line div { height: 100%; border-radius: 2px; }
+
+  .rolling { display: grid; grid-template-columns: repeat(5, 1fr); margin-bottom: 24px; }
+  .rolling div { padding: 16px 18px; border-left: 1px solid var(--border); }
+  .rolling div:first-child { border-left: none; }
+  .rolling span { display: block; font-size: 0.8rem; color: var(--muted); }
+  .rolling strong { display: block; font-size: 1.35rem; margin-top: 4px; font-variant-numeric: tabular-nums; }
+
+  .controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .segmented { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 3px; }
+  .segmented button { border: none; background: none; color: var(--text-2); padding: 7px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; }
+  .segmented button.active { background: var(--navy); color: #fff; }
+  .stepper { display: inline-flex; align-items: center; gap: 6px; }
+  .stepper .arrow {
+    width: 34px; height: 34px; display: grid; place-items: center; padding: 0;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 9px;
+  }
+  .stepper .arrow svg { width: 16px; height: 16px; }
+  .stepper .arrow:hover:not(:disabled) { border-color: var(--gold); }
+  .stepper .arrow:disabled { opacity: 0.35; cursor: default; }
+  .stepper .period-label { min-width: 170px; text-align: center; font-weight: 700; }
+  .stepper .today-btn { border: none; background: none; color: var(--gold); font-weight: 700; font-size: 0.85rem; padding: 6px 8px; }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px; }
+  .kpi { padding: 18px 20px; }
+  .kpi .label { font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+  .kpi .value { font-size: 2rem; font-weight: 700; margin-top: 6px; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .kpi .sub { font-size: 0.8rem; color: var(--muted); margin-top: 6px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .badge { display: inline-flex; align-items: center; gap: 3px; font-weight: 700; font-size: 0.78rem; padding: 2px 7px; border-radius: 999px; }
+  .badge.up { color: var(--good); background: var(--good-bg); }
+  .badge.down { color: var(--bad); background: var(--bad-bg); }
+  .badge.flat { color: var(--muted); background: var(--surface-2); }
+
+  .chart-panel { padding: 20px 20px 14px; margin-bottom: 16px; }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .panel-head h3 { font-size: 1rem; }
+  .legend { display: flex; gap: 16px; font-size: 0.82rem; color: var(--text-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .chart { position: relative; display: grid; grid-template-columns: 40px 1fr; grid-template-rows: 1fr 26px; height: 290px; }
+  .y-axis { position: relative; }
+  .y-axis span { position: absolute; right: 8px; transform: translateY(50%); font-size: 0.72rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .plot { position: relative; border-bottom: 1px solid var(--border); }
+  .gridline { position: absolute; left: 0; right: 0; border-top: 1px solid var(--grid); }
+  .bars { position: absolute; inset: 0; display: flex; align-items: stretch; gap: 2px; }
+  .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; min-width: 0; border-radius: 6px 6px 0 0; outline: none; }
+  .col:hover, .col:focus-visible { background: var(--hover-ring); }
+  .stack { width: 100%; max-width: 44px; display: flex; flex-direction: column-reverse; gap: 2px; }
+  .seg { width: 100%; }
+  .seg.qr { background: var(--qr); }
+  .seg.links { background: var(--links); }
+  .stack .seg:last-child { border-radius: 4px 4px 0 0; }
+  .x-axis { grid-column: 2; display: flex; gap: 2px; padding-top: 8px; }
+  .x-axis span { flex: 1; text-align: center; font-size: 0.72rem; color: var(--muted); white-space: nowrap; min-width: 0; }
+  .tooltip {
+    position: absolute; pointer-events: none; z-index: 5;
+    background: var(--navy); color: #fff; border-radius: 8px;
+    padding: 8px 10px; font-size: 0.8rem; white-space: nowrap;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    transform: translate(-50%, calc(-100% - 10px));
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .tooltip .tt-title { color: rgba(255,255,255,0.7); }
+  .tooltip strong { display: block; font-size: 1rem; }
+  .tooltip .tt-row { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+  .tooltip .tt-row b { margin-left: auto; padding-left: 12px; font-variant-numeric: tabular-nums; }
+  .empty-note { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 0.9rem; pointer-events: none; }
+
+  .insights { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .insights .wide { grid-column: 1 / -1; }
+  .list-panel { padding: 20px; }
+  .list-row { display: grid; grid-template-columns: minmax(170px, 1.3fr) 2fr auto; align-items: center; gap: 12px; padding: 7px 0; font-size: 0.9rem; }
+  .list-row .name { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .list-row .name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .list-row .track { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+  .list-row .fill { height: 100%; border-radius: 4px; }
+  .list-row .num { font-variant-numeric: tabular-nums; text-align: right; min-width: 78px; }
+  .list-row .num small { color: var(--muted); margin-left: 6px; }
+  .list-row.top .name { font-weight: 700; }
+  .list-empty { color: var(--muted); font-size: 0.9rem; padding: 6px 0; }
+  .info-panel { padding: 20px; font-size: 0.9rem; color: var(--text-2); line-height: 1.55; }
+  .info-panel h3 { font-size: 1rem; color: var(--text); margin-bottom: 8px; }
+  .info-panel p + p { margin-top: 8px; }
+  .info-panel code { background: var(--surface-2); border: 1px solid var(--border); border-radius: 5px; padding: 1px 5px; font-size: 0.85em; }
+
+  .table-panel { padding: 8px 20px 12px; }
+  .table-panel h3 { font-size: 1rem; padding: 12px 0 6px; }
+  .table-scroll { max-height: 440px; overflow-y: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { padding: 10px 4px; border-bottom: 1px solid var(--border); text-align: left; }
+  thead th { position: sticky; top: 0; background: var(--surface); z-index: 1; }
+  tr:last-child td { border-bottom: none; }
+  th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  th .th-inner { display: inline-flex; align-items: center; gap: 6px; }
+  td.total { font-weight: 700; }
+  td.muted { color: var(--muted); }
+
+  .footnote { color: var(--muted); font-size: 0.8rem; margin-top: 18px; line-height: 1.5; }
+  .error-banner { background: var(--bad-bg); color: var(--bad); border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.9rem; }
+  .warn-banner { background: var(--gold-soft); color: #8a5a10; border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.9rem; }
+
+  /* ---------- Banner (announcement) view ---------- */
+  .admin-field { margin-bottom: 18px; }
+  .admin-field label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-2); margin-bottom: 8px; }
+  .admin-field textarea {
+    width: 100%; font: inherit; font-size: 0.95rem; padding: 12px 14px;
+    border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2);
+    color: var(--text); resize: vertical; min-height: 90px; line-height: 1.5;
+  }
+  .admin-field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
   .admin-status { margin-top: 14px; font-size: 0.88rem; font-weight: 600; min-height: 1.2em; }
-  .admin-status.ok { color: #2f7d3a; }
-  .admin-status.err { color: var(--color-red); }
-  .admin-status.warn { color: var(--color-orange); }
+  .admin-status.ok { color: var(--good); }
+  .admin-status.err { color: var(--bad); }
+  .admin-status.warn { color: #8a5a10; }
+  .banner-panel { padding: 24px; max-width: 640px; }
 
-  #admin-login { text-align: center; }
-  #admin-dashboard { display: none; }
+  /* ---------- Language switch ---------- */
+  .lang-switch { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: 2px; }
+  .lang-switch button { border: none; background: none; color: var(--muted); font-size: 0.78rem; font-weight: 700; padding: 5px 9px; border-radius: 7px; letter-spacing: 0.04em; }
+  .lang-switch button.active { background: var(--navy); color: #fff; }
+  .login-card { position: relative; }
+  .login-card .lang-switch { position: absolute; top: 14px; right: 14px; }
 
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 8px;
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 860px) {
+    .app { grid-template-columns: minmax(0, 1fr); }
+    .sidebar { position: static; height: auto; flex-direction: row; align-items: center; padding: 12px 16px; gap: 12px; }
+    .brand { border: none; padding: 0; flex: 1; min-width: 0; }
+    .brand span { display: none; }
+    .nav { display: none; }
+    .account { margin: 0; padding: 0; border: none; flex-wrap: nowrap; }
+    .account-info { display: none; }
+    .logout { flex-basis: auto; padding: 6px 10px; }
+    .main { padding: 20px 16px 40px; }
+    .insights { grid-template-columns: 1fr; }
+    .rolling { grid-template-columns: repeat(3, 1fr); }
+    .rolling div:nth-child(4) { border-left: none; }
+    .rolling div:nth-child(n+4) { border-top: 1px solid var(--border); }
+    .topbar-actions { width: 100%; flex-wrap: wrap; }
+    .topbar-actions .lang-switch { margin-left: auto; }
   }
-  @media (min-width: 560px) {
-    .stat-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-
-  .stat-tile {
-    background: #fff;
-    border-radius: var(--radius-md);
-    padding: 16px;
-    border: 1px solid rgba(28, 20, 16, 0.08);
-  }
-
-  .stat-tile .stat-label {
-    font-family: var(--font-heading);
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--color-dark-soft);
-    opacity: 0.7;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin-bottom: 6px;
-  }
-
-  .stat-tile .stat-total {
-    font-family: var(--font-heading);
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--color-red);
-    margin-bottom: 4px;
-  }
-
-  .stat-tile .stat-breakdown {
-    font-size: 0.78rem;
-    color: var(--color-dark-soft);
-    opacity: 0.8;
-  }
-
-  .admin-refresh {
-    display: block;
-    margin: 4px auto 0;
-    background: none;
-    border: none;
-    color: var(--color-dark-soft);
-    opacity: 0.7;
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-family: var(--font-body);
-  }
-
-  .admin-logout {
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-    font-size: 0.85rem;
-    color: var(--color-dark-soft);
-    opacity: 0.7;
-    cursor: pointer;
-    text-decoration: underline;
+  @media (max-width: 560px) {
+    .channels { grid-template-columns: 1fr; gap: 10px; }
+    .channel { display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 12px 14px; }
+    .channel .value { margin: 0; font-size: 1.4rem; grid-row: span 2; }
+    .channel .meta { grid-column: 1; }
+    .channel .share-line { display: none; }
+    .rolling { grid-template-columns: repeat(2, 1fr); }
+    .rolling div { border-left: none !important; border-top: 1px solid var(--border); }
+    .rolling div:nth-child(-n+2) { border-top: none; }
+    .rolling div:nth-child(even) { border-left: 1px solid var(--border) !important; }
+    .rolling div:last-child { grid-column: span 2; border-left: none !important; }
+    .kpis { gap: 10px; }
+    .kpi { padding: 14px; }
+    .kpi .value { font-size: 1.5rem; }
+    .segmented { width: 100%; }
+    .segmented button { flex: 1; padding: 7px 4px; font-size: 0.8rem; }
+    .stepper { width: 100%; justify-content: space-between; }
+    .stepper .period-label { min-width: 0; flex: 1; font-size: 0.92rem; }
+    .chart { height: 220px; grid-template-columns: 32px 1fr; }
+    .list-row { grid-template-columns: 1fr auto; }
+    .list-row .track { grid-column: 1 / -1; grid-row: 2; }
+    th, td { padding: 9px 3px; font-size: 0.82rem; }
   }
 </style>
 </head>
 <body>
+  <!-- ---------- Login ---------- -->
+  <div class="login-page" id="login-page">
+    <form class="login-card" id="login-form">
+      <div class="lang-switch" data-lang-switch>
+        <button type="button" data-lang="fr">FR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <img class="logo" src="images/IMG-20260822-WA0043.jpg" alt="Alex Braise">
+      <h1 data-i18n="loginTitle"></h1>
+      <p class="subtitle" data-i18n="loginSubtitle"></p>
+      <div class="field">
+        <label for="password" data-i18n="password"></label>
+        <div class="password-wrap">
+          <input id="password" type="password" autocomplete="current-password" required autofocus>
+          <button type="button" class="password-toggle" id="toggle-pw" aria-label="Afficher le mot de passe">
+            <svg viewBox="0 0 24 24" fill-rule="evenodd" id="toggle-pw-icon"><path d="M1 12C1 12 5 5 12 5C19 5 23 12 23 12C23 12 19 19 12 19C5 19 1 12 1 12Z M15.5 12a3.5 3.5 0 1 1-7 0a3.5 3.5 0 1 1 7 0Z"/></svg>
+          </button>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" id="login-btn" data-i18n="signIn"></button>
+      <p class="login-error" id="login-error" role="alert"></p>
+      <p class="login-foot" data-i18n="loginFoot"></p>
+    </form>
+  </div>
 
-<div class="admin-wrap">
-
-  <div class="admin-card" id="admin-login">
-    <h1>Accès Admin</h1>
-    <p class="admin-sub">Entrez le mot de passe pour voir les statistiques et modifier l'annonce.</p>
-    <div class="admin-field">
-      <label for="admin-password">Mot de passe</label>
-      <div class="password-wrap">
-        <input type="password" id="admin-password" autocomplete="off" placeholder="••••••••">
-        <button type="button" class="password-toggle" id="password-toggle-btn" aria-label="Afficher le mot de passe">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill-rule="evenodd" id="password-toggle-icon"><path d="M1 12C1 12 5 5 12 5C19 5 23 12 23 12C23 12 19 19 12 19C5 19 1 12 1 12Z M15.5 12a3.5 3.5 0 1 1-7 0a3.5 3.5 0 1 1 7 0Z"/></svg>
+  <!-- ---------- Dashboard ---------- -->
+  <div class="app" id="app" hidden>
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="images/IMG-20260822-WA0043.jpg" alt="">
+        <div>
+          <strong>Alex Braise</strong>
+          <span>Admin</span>
+        </div>
+      </div>
+      <nav class="nav" id="side-nav">
+        <div class="nav-title" data-i18n="navAnalytics"></div>
+        <a href="#" data-channel="all">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+          <span data-i18n="chAll"></span>
+        </a>
+        <a href="#" data-channel="qr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>
+          <span data-i18n="chQr"></span>
+        </a>
+        <a href="#" data-channel="links">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <span data-i18n="chLinks"></span>
+        </a>
+        <div class="nav-title" data-i18n="navSite"></div>
+        <a href="#" data-view="banner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11 13v4a2 2 0 0 0 4 0v-3"/></svg>
+          <span data-i18n="navAnnounce"></span>
+        </a>
+        <a href="/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M21 14v7H3V3h7"/></svg>
+          <span data-i18n="viewWebsite"></span>
+        </a>
+      </nav>
+      <div class="account">
+        <div class="avatar">A</div>
+        <div class="account-info">
+          <strong data-i18n="administrator"></strong>
+          <span data-i18n="signedIn"></span>
+        </div>
+        <button type="button" class="logout" id="logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+          <span data-i18n="logOut"></span>
         </button>
       </div>
-    </div>
-    <button type="button" class="btn btn-primary admin-btn" id="admin-login-btn">Entrer</button>
-    <div class="admin-status err" id="admin-login-status"></div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h2 id="page-title"></h2>
+          <p id="page-subtitle"></p>
+        </div>
+        <div class="topbar-actions">
+          <span class="updated" id="updated"></span>
+          <button type="button" class="btn-ghost" id="refresh">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+            <span data-i18n="refresh"></span>
+          </button>
+          <div class="lang-switch" data-lang-switch>
+            <button type="button" data-lang="fr">FR</button>
+            <button type="button" data-lang="en">EN</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="error-banner" id="error-banner" hidden></div>
+
+      <!-- ===== Analytics view ===== -->
+      <div id="view-analytics">
+        <div class="controls">
+          <div class="segmented" id="modes">
+            <button type="button" data-mode="week" data-i18n="modeWeek"></button>
+            <button type="button" data-mode="month" data-i18n="modeMonth"></button>
+            <button type="button" data-mode="quarter" data-i18n="modeQuarter"></button>
+            <button type="button" data-mode="half" data-i18n="modeHalf"></button>
+            <button type="button" data-mode="year" data-i18n="modeYear"></button>
+          </div>
+          <div class="stepper">
+            <button type="button" class="arrow" id="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <span class="period-label" id="period-label"></span>
+            <button type="button" class="arrow" id="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+            <button type="button" class="today-btn" id="today-btn" data-i18n="current"></button>
+          </div>
+        </div>
+
+        <div class="channels" id="channels">
+          <button type="button" class="channel" data-channel="all">
+            <div class="head">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
+              <span data-i18n="chAll"></span>
+            </div>
+            <div class="value" data-value>0</div>
+            <div class="meta" data-meta></div>
+            <div class="share-line"><div style="width:100%; background: linear-gradient(90deg, var(--qr), var(--links))"></div></div>
+          </button>
+          <button type="button" class="channel" data-channel="qr">
+            <div class="head">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></span>
+              <span data-i18n="chQr"></span>
+            </div>
+            <div class="value" data-value>0</div>
+            <div class="meta" data-meta></div>
+            <div class="share-line"><div data-share style="background: var(--qr)"></div></div>
+          </button>
+          <button type="button" class="channel" data-channel="links">
+            <div class="head">
+              <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+              <span data-i18n="chLinks"></span>
+            </div>
+            <div class="value" data-value>0</div>
+            <div class="meta" data-meta></div>
+            <div class="share-line"><div data-share style="background: var(--links)"></div></div>
+          </button>
+        </div>
+
+        <div class="kpis">
+          <div class="panel kpi">
+            <div class="label" id="kpi-total-label"></div>
+            <div class="value" id="kpi-total">0</div>
+            <div class="sub" id="kpi-change"></div>
+          </div>
+          <div class="panel kpi">
+            <div class="label" data-i18n="kpiAvg"></div>
+            <div class="value" id="kpi-avg">0</div>
+            <div class="sub" id="kpi-avg-sub"></div>
+          </div>
+          <div class="panel kpi">
+            <div class="label" data-i18n="kpiBest"></div>
+            <div class="value" id="kpi-best">–</div>
+            <div class="sub" id="kpi-best-sub"></div>
+          </div>
+          <div class="panel kpi">
+            <div class="label" data-i18n="kpiToday"></div>
+            <div class="value" id="kpi-today">0</div>
+            <div class="sub" id="kpi-today-sub"></div>
+          </div>
+        </div>
+
+        <div class="panel chart-panel">
+          <div class="panel-head">
+            <h3 id="chart-title"></h3>
+            <div class="legend" id="legend"></div>
+          </div>
+          <div class="chart">
+            <div class="y-axis" id="y-axis"></div>
+            <div class="plot" id="plot"></div>
+            <div class="x-axis" id="x-axis"></div>
+          </div>
+        </div>
+
+        <div class="insights" id="insights"></div>
+
+        <p class="section-label" data-i18n="rolling"></p>
+        <div class="panel rolling" id="rolling"></div>
+
+        <div class="panel table-panel">
+          <h3 data-i18n="breakdown"></h3>
+          <div class="table-scroll">
+            <table>
+              <thead id="breakdown-head"></thead>
+              <tbody id="breakdown"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="footnote" id="footnote"></p>
+      </div>
+
+      <!-- ===== Announcement banner view ===== -->
+      <div id="view-banner" hidden>
+        <div class="panel banner-panel">
+          <div class="admin-field">
+            <label for="banner-fr" data-i18n="bannerFr"></label>
+            <textarea id="banner-fr"></textarea>
+          </div>
+          <div class="admin-field">
+            <label for="banner-en" data-i18n="bannerEn"></label>
+            <textarea id="banner-en"></textarea>
+          </div>
+          <button type="button" class="btn-primary" id="banner-save-btn" style="width:auto; padding:12px 28px;" data-i18n="bannerSave"></button>
+          <div class="admin-status" id="banner-status"></div>
+        </div>
+      </div>
+    </main>
   </div>
-
-  <div id="admin-dashboard">
-
-    <div class="admin-card">
-      <h2>Statistiques de visites</h2>
-      <p class="admin-sub">QR code scanné, visiteurs venus de Google, et le reste — comptés automatiquement à chaque visite du site.</p>
-      <div class="stat-grid" id="stat-grid">
-        <div class="stat-tile"><div class="stat-label">Aujourd'hui</div><div class="stat-total">—</div></div>
-        <div class="stat-tile"><div class="stat-label">7 jours</div><div class="stat-total">—</div></div>
-        <div class="stat-tile"><div class="stat-label">30 jours</div><div class="stat-total">—</div></div>
-        <div class="stat-tile"><div class="stat-label">3 mois</div><div class="stat-total">—</div></div>
-        <div class="stat-tile"><div class="stat-label">6 mois</div><div class="stat-total">—</div></div>
-        <div class="stat-tile"><div class="stat-label">1 an</div><div class="stat-total">—</div></div>
-      </div>
-      <button type="button" class="admin-refresh" id="admin-refresh-btn">Actualiser</button>
-      <div class="admin-status" id="admin-stats-status"></div>
-    </div>
-
-    <div class="admin-card">
-      <h2>Annonce (bannière défilante)</h2>
-      <p class="admin-sub">S'affiche en bas de la page d'accueil. Laissez les deux champs vides pour qu'aucune bannière ne s'affiche.</p>
-
-      <div class="admin-field">
-        <label for="banner-fr">Message en Français</label>
-        <textarea id="banner-fr" placeholder="Ex : Promo spéciale ce week-end..."></textarea>
-      </div>
-      <div class="admin-field">
-        <label for="banner-en">Message en Anglais</label>
-        <textarea id="banner-en" placeholder="Ex : Special promo this weekend..."></textarea>
-      </div>
-
-      <button type="button" class="btn btn-primary admin-btn" id="admin-save-btn">Enregistrer</button>
-      <div class="admin-status" id="admin-save-status"></div>
-    </div>
-
-    <span class="admin-logout" id="admin-logout-btn">Se déconnecter</span>
-  </div>
-
-</div>
 
 <script>
-  // This page is served by the same Vercel project as the /api functions,
-  // so plain relative paths reach them — no separate base URL needed.
-  const SESSION_KEY = 'alexbraise_admin_password';
+  const DAY = 86400000;
+  const PAGE_KEYS = ['home', 'menu'];
+  const SOURCE_KEYS = ['google', 'search', 'facebook', 'instagram', 'tiktok', 'whatsapp', 'social', 'website', 'direct'];
 
-  const loginScreen = document.getElementById('admin-login');
-  const dashboard = document.getElementById('admin-dashboard');
-  const passwordInput = document.getElementById('admin-password');
-  const passwordToggleBtn = document.getElementById('password-toggle-btn');
-  const passwordToggleIcon = document.getElementById('password-toggle-icon');
-  const loginBtn = document.getElementById('admin-login-btn');
-  const loginStatus = document.getElementById('admin-login-status');
-  const statGrid = document.getElementById('stat-grid');
-  const statsStatus = document.getElementById('admin-stats-status');
-  const refreshBtn = document.getElementById('admin-refresh-btn');
-  const frField = document.getElementById('banner-fr');
-  const enField = document.getElementById('banner-en');
-  const saveBtn = document.getElementById('admin-save-btn');
-  const saveStatus = document.getElementById('admin-save-status');
-  const logoutBtn = document.getElementById('admin-logout-btn');
+  // ---------- Translations ----------
+  const I18N = {
+    fr: {
+      pageTitle: 'Tableau de bord | Alex Braise',
+      loginTitle: 'Espace administrateur',
+      loginSubtitle: 'Connectez-vous pour consulter les statistiques du site',
+      password: 'Mot de passe',
+      signIn: 'Se connecter',
+      signingIn: 'Connexion…',
+      loginFoot: 'Alex Braise · Bonamoussadi & Logpom, Douala',
+      wrongPassword: 'Mot de passe incorrect. Veuillez réessayer.',
+      sessionEnded: 'Votre session a expiré. Veuillez vous reconnecter.',
+      loadError: 'Impossible de charger les statistiques.',
+      navAnalytics: 'Statistiques',
+      navSite: 'Site',
+      navAnnounce: 'Annonce',
+      viewWebsite: 'Voir le site',
+      administrator: 'Administrateur',
+      signedIn: 'Connecté',
+      logOut: 'Se déconnecter',
+      refresh: 'Actualiser',
+      updated: 'Mis à jour à {time}',
+      modeWeek: 'Semaine', modeMonth: 'Mois', modeQuarter: '3 mois', modeHalf: '6 mois', modeYear: 'Année',
+      current: 'Période actuelle', prevPeriod: 'Période précédente', nextPeriod: 'Période suivante',
+      chAll: 'Tous les visiteurs', chQr: 'Scans QR', chLinks: 'Recherche & liens',
+      subAll: 'Tous les visiteurs du site, quelle que soit leur provenance',
+      subQr: 'Personnes ayant ouvert le site en scannant le code QR',
+      subLinks: 'Personnes venues de Google, des réseaux sociaux ou d’un autre site',
+      footAll: 'Chaque visiteur est compté une fois par session de navigation, sur la première page ouverte. Les robots sont ignorés.',
+      footQr: 'Les scans sont reconnus grâce à l’adresse contenue dans le code QR. Les visites de la page d’accueil sans provenance connue sont aussi comptées ici (code QR ou adresse tapée directement). Chaque visiteur est compté une fois par session de navigation.',
+      footLinks: 'La source est le site d’où vient le visiteur. Les liens ouverts dans certaines applications (comme WhatsApp) n’indiquent pas toujours leur provenance : s’ils ouvrent une autre page que l’accueil, ils apparaissent dans « Liens partagés & favoris ». Chaque visiteur est compté une fois par session de navigation.',
+      periodMeta: '{period}', shareOfAll: '{pct} de tous les visiteurs',
+      kpiTotalVisits: 'Total des visites', kpiTotalScans: 'Total des scans',
+      kpiAvg: 'Moyenne par jour', kpiBest: 'Meilleur jour', kpiToday: 'Aujourd’hui',
+      vsSame: { week: 'vs même moment la semaine dernière', month: 'vs même moment le mois dernier', quarter: 'vs même moment des 3 mois précédents', half: 'vs même moment des 6 mois précédents', year: 'vs même moment l’année dernière' },
+      vsPrev: { week: 'vs semaine précédente', month: 'vs mois précédent', quarter: 'vs 3 mois précédents', half: 'vs 6 mois précédents', year: 'vs année précédente' },
+      vsYesterday: 'vs hier',
+      badgeNew: 'Nouveau',
+      perDayOver: '{noun} par jour sur {n} {days}',
+      day: 'jour', days: 'jours',
+      nothing: 'Aucune donnée pour cette période',
+      nothingYet: 'Aucune donnée pour cette période pour le moment.',
+      notStarted: 'Cette période n’a pas encore commencé.',
+      upcoming: 'À venir',
+      visit: 'visite', visits: 'visites', scan: 'scan', scans: 'scans',
+      chartTitle: { visits: 'Visites', scans: 'Scans', day: 'par jour', week: 'par semaine', month: 'par mois' },
+      whereFrom: 'Provenance des visiteurs',
+      pagesFirst: 'Pages d’arrivée',
+      busiestDays: 'Jours les plus fréquentés',
+      topSources: 'Principales sources',
+      howCountedTitle: 'Comment les scans sont comptés',
+      howCounted1: 'Le code QR imprimé ouvre le site avec une étiquette cachée (<code>?src=qr</code>) : chaque scan est ainsi reconnu, puis l’étiquette disparaît de l’adresse.',
+      howCounted2: 'Les visites de la page d’accueil sans provenance connue (code QR ou adresse tapée directement) sont aussi comptées comme des scans, faute de pouvoir les distinguer.',
+      rolling: 'Totaux récents',
+      rollingItems: ['7 derniers jours', '30 derniers jours', '3 derniers mois', '6 derniers mois', '12 derniers mois'],
+      breakdown: 'Détail',
+      unit: { day: 'Jour', week: 'Semaine', month: 'Mois' },
+      colVisits: 'Visites', colScans: 'Scans', colShare: 'Part', colTotal: 'Total',
+      months: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+      monthsShort: ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'],
+      weekdays: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+      weekdaysShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
+      sources: { google: 'Google', search: 'Autres moteurs de recherche', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', whatsapp: 'WhatsApp', social: 'Autres réseaux sociaux', website: 'Autres sites web', direct: 'Liens partagés & favoris' },
+      pages: { home: 'Accueil', menu: 'Menu' },
+      bannerSub: 'S’affiche en bas de la page d’accueil. Laissez les deux champs vides pour qu’aucune bannière ne s’affiche.',
+      bannerFr: 'Message en Français', bannerEn: 'Message en Anglais', bannerSave: 'Enregistrer',
+      bannerSaved: 'Enregistré ✓ — visible pour tous les visiteurs.',
+      bannerSaveError: 'Erreur lors de l’enregistrement. Réessayez.',
+      bannerLoading: 'Chargement...',
+      bannerLoadError: 'Impossible de charger l’annonce actuelle.',
+      storageWarning: 'Stockage non configuré côté serveur.',
+      locale: 'fr-FR'
+    },
+    en: {
+      pageTitle: 'Admin Dashboard | Alex Braise',
+      loginTitle: 'Admin account',
+      loginSubtitle: 'Sign in to view your website statistics',
+      password: 'Password',
+      signIn: 'Sign in',
+      signingIn: 'Signing in…',
+      loginFoot: 'Alex Braise · Bonamoussadi & Logpom, Douala',
+      wrongPassword: 'Incorrect password. Please try again.',
+      sessionEnded: 'Your session has ended. Please sign in again.',
+      loadError: 'Could not load statistics.',
+      navAnalytics: 'Analytics',
+      navSite: 'Site',
+      navAnnounce: 'Announcement',
+      viewWebsite: 'View website',
+      administrator: 'Administrator',
+      signedIn: 'Signed in',
+      logOut: 'Log out',
+      refresh: 'Refresh',
+      updated: 'Updated {time}',
+      modeWeek: 'Week', modeMonth: 'Month', modeQuarter: '3 months', modeHalf: '6 months', modeYear: 'Year',
+      current: 'Current', prevPeriod: 'Previous period', nextPeriod: 'Next period',
+      chAll: 'All visitors', chQr: 'QR scans', chLinks: 'Search & links',
+      subAll: 'Everyone who visited the website, from every source',
+      subQr: 'People who opened the website by scanning the printed QR code',
+      subLinks: 'People who found the website on Google, social media or another website',
+      footAll: 'Each visitor is counted once per browser session, on the first page they open. Search-engine robots are ignored.',
+      footQr: 'Scans are recognised by the address inside the QR code. Homepage visits with no known source are also counted here (QR code or a typed address). Each visitor is counted once per browser session.',
+      footLinks: 'The source is the website the visitor came from. Links opened inside some apps (such as WhatsApp) do not always say where they came from: if they open a page other than the homepage they appear as "Shared links & bookmarks". Each visitor is counted once per browser session.',
+      periodMeta: 'in {period}', shareOfAll: '{pct} of all visitors',
+      kpiTotalVisits: 'Total visits', kpiTotalScans: 'Total scans',
+      kpiAvg: 'Daily average', kpiBest: 'Busiest day', kpiToday: 'Today',
+      vsSame: { week: 'vs same point last week', month: 'vs same point last month', quarter: 'vs same point last 3 months', half: 'vs same point last 6 months', year: 'vs same point last year' },
+      vsPrev: { week: 'vs previous week', month: 'vs previous month', quarter: 'vs previous 3 months', half: 'vs previous 6 months', year: 'vs previous year' },
+      vsYesterday: 'vs yesterday',
+      badgeNew: 'New',
+      perDayOver: '{noun} per day over {n} {days}',
+      day: 'day', days: 'days',
+      nothing: 'Nothing recorded in this period',
+      nothingYet: 'Nothing recorded in this period yet.',
+      notStarted: 'This period has not started yet.',
+      upcoming: 'Upcoming',
+      visit: 'visit', visits: 'visits', scan: 'scan', scans: 'scans',
+      chartTitle: { visits: 'Visits', scans: 'Scans', day: 'per day', week: 'per week', month: 'per month' },
+      whereFrom: 'Where visitors come from',
+      pagesFirst: 'Pages people open first',
+      busiestDays: 'Busiest days of the week',
+      topSources: 'Top sources',
+      howCountedTitle: 'How scans are counted',
+      howCounted1: 'The printed QR code opens the site with a hidden tag (<code>?src=qr</code>), so every scan is recognised, then the tag disappears from the address bar.',
+      howCounted2: 'Homepage visits with no known source (QR code or a typed address) are also counted as scans, since there is no way to tell them apart.',
+      rolling: 'Rolling totals',
+      rollingItems: ['Last 7 days', 'Last 30 days', 'Last 3 months', 'Last 6 months', 'Last 12 months'],
+      breakdown: 'Breakdown',
+      unit: { day: 'Day', week: 'Week', month: 'Month' },
+      colVisits: 'Visits', colScans: 'Scans', colShare: 'Share', colTotal: 'Total',
+      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      sources: { google: 'Google', search: 'Other search engines', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', whatsapp: 'WhatsApp', social: 'Other social media', website: 'Other websites', direct: 'Shared links & bookmarks' },
+      pages: { home: 'Home', menu: 'Menu' },
+      bannerSub: 'Shows at the bottom of the homepage. Leave both fields empty so no banner is shown.',
+      bannerFr: 'Message in French', bannerEn: 'Message in English', bannerSave: 'Save',
+      bannerSaved: 'Saved ✓ — visible to every visitor.',
+      bannerSaveError: 'Error while saving. Please try again.',
+      bannerLoading: 'Loading...',
+      bannerLoadError: 'Could not load the current announcement.',
+      storageWarning: 'Storage is not configured on the server.',
+      locale: 'en-GB'
+    }
+  };
 
-  const getPassword = () => sessionStorage.getItem(SESSION_KEY) || '';
+  let lang = 'fr';
+  const L = () => I18N[lang];
+  function t(key, vars) {
+    let text = L()[key];
+    if (vars) for (const k in vars) text = text.replace('{' + k + '}', vars[k]);
+    return text;
+  }
+  const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
 
-  const setStatus = (el, text, kind) => {
+  const state = { days: {}, today: 0, earliest: 0, mode: 'month', anchor: 0, channel: 'all', view: 'analytics' };
+  let password = '';
+
+  const $ = id => document.getElementById(id);
+  const escapeHtml = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+  // ---------- Formatting ----------
+  function parseISO(iso) { const [y, m, d] = iso.split('-').map(Number); return Date.UTC(y, m - 1, d); }
+  function toISO(ts) { return new Date(ts).toISOString().slice(0, 10); }
+  function parts(ts) { const d = new Date(ts); return { y: d.getUTCFullYear(), m: d.getUTCMonth(), d: d.getUTCDate(), wd: d.getUTCDay() }; }
+  function monthStart(y, m) { return Date.UTC(y, m, 1); }
+  function fmtDay(ts, withYear) { const p = parts(ts); return `${p.d} ${L().monthsShort[p.m]}${withYear ? ' ' + p.y : ''}`; }
+  function fmtWeekday(ts) { return capitalize(L().weekdaysShort[parts(ts).wd]); }
+  function fmtNum(n) { return Math.round(n).toLocaleString(L().locale); }
+  function pct(part, whole) { return whole ? Math.round((part / whole) * 100) : 0; }
+  function fmtPct(n) { return lang === 'fr' ? `${n} %` : `${n}%`; }
+  function noun(n, channel = state.channel) {
+    return channel === 'qr' ? t(n === 1 ? 'scan' : 'scans') : t(n === 1 ? 'visit' : 'visits');
+  }
+
+  // ---------- Reading the data ----------
+  function sumValues(obj) { let s = 0; for (const k in obj) s += obj[k]; return s; }
+
+  function countOn(ts, channel = state.channel) {
+    const day = state.days[toISO(ts)];
+    if (!day) return 0;
+    const qr = day.s.qr || 0;
+    if (channel === 'qr') return qr;
+    const total = sumValues(day.s);
+    return channel === 'links' ? total - qr : total;
+  }
+
+  function sumRange(start, end, channel = state.channel) {
+    let total = 0;
+    for (let ts = start; ts <= end; ts += DAY) total += countOn(ts, channel);
+    return total;
+  }
+
+  function tally(start, end, kind) {
+    const out = {};
+    const add = (key, n) => { if (n) out[key] = (out[key] || 0) + n; };
+    for (let ts = start; ts <= end; ts += DAY) {
+      const day = state.days[toISO(ts)];
+      if (!day) continue;
+      if (kind === 'sources') {
+        for (const k in day.s) if (k !== 'qr') add(k, day.s[k]);
+      } else if (state.channel === 'all') {
+        for (const k in day.p) add(k, day.p[k]);
+      } else if (state.channel === 'links') {
+        for (const k in day.l) add(k, day.l[k]);
+      } else {
+        for (const k in day.p) add(k, day.p[k] - ((day.l && day.l[k]) || 0));
+      }
+    }
+    return out;
+  }
+
+  // ---------- Periods ----------
+  const SPANS = { month: 1, quarter: 3, half: 6, year: 12 };
+
+  function periodFor(mode, anchor) {
+    const p = parts(anchor);
+    if (mode === 'week') {
+      const start = anchor - ((p.wd + 6) % 7) * DAY;
+      return { start, end: start + 6 * DAY };
+    }
+    const span = SPANS[mode];
+    const firstMonth = Math.floor(p.m / span) * span;
+    return { start: monthStart(p.y, firstMonth), end: monthStart(p.y, firstMonth + span) - DAY };
+  }
+
+  function shiftAnchor(mode, anchor, dir) {
+    if (mode === 'week') return anchor + dir * 7 * DAY;
+    const p = parts(periodFor(mode, anchor).start);
+    return monthStart(p.y, p.m + dir * SPANS[mode]);
+  }
+
+  function periodLabel(mode, { start, end }) {
+    const s = parts(start), e = parts(end);
+    switch (mode) {
+      case 'week': return `${fmtDay(start, s.y !== e.y)} – ${fmtDay(end, true)}`;
+      case 'month': return `${capitalize(L().months[s.m])} ${s.y}`;
+      case 'year': return String(s.y);
+      default: return `${capitalize(L().monthsShort[s.m])} – ${L().monthsShort[e.m]} ${s.y}`;
+    }
+  }
+
+  function bucketsFor(mode, { start, end }) {
+    const buckets = [];
+    if (mode === 'week' || mode === 'month') {
+      for (let ts = start; ts <= end; ts += DAY) {
+        buckets.push({ start: ts, end: ts, axis: mode === 'week' ? fmtWeekday(ts) : String(parts(ts).d), name: `${fmtWeekday(ts)} ${fmtDay(ts, true)}` });
+      }
+    } else if (mode === 'year') {
+      const y = parts(start).y;
+      for (let m = 0; m < 12; m++) {
+        buckets.push({ start: monthStart(y, m), end: monthStart(y, m + 1) - DAY, axis: capitalize(L().monthsShort[m]), name: `${capitalize(L().months[m])} ${y}` });
+      }
+    } else {
+      let s = start;
+      while (s <= end) {
+        const e = Math.min(end, s + ((7 - parts(s).wd) % 7) * DAY);
+        buckets.push({ start: s, end: e, axis: fmtDay(s), name: `${fmtDay(s)} – ${fmtDay(e, true)}` });
+        s = e + DAY;
+      }
+    }
+    buckets.forEach(b => {
+      b.future = b.start > state.today;
+      const last = Math.min(b.end, state.today);
+      b.qr = b.future ? 0 : sumRange(b.start, last, 'qr');
+      b.links = b.future ? 0 : sumRange(b.start, last, 'links');
+      b.count = state.channel === 'qr' ? b.qr : state.channel === 'links' ? b.links : b.qr + b.links;
+    });
+    return buckets;
+  }
+
+  // ---------- Rendering ----------
+  function applyStaticText() {
+    document.documentElement.lang = lang;
+    document.title = t('pageTitle');
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    $('prev').setAttribute('aria-label', t('prevPeriod'));
+    $('next').setAttribute('aria-label', t('nextPeriod'));
+  }
+
+  function changeBadge(current, previous) {
+    if (previous === 0 && current === 0) return `<span class="badge flat">${fmtPct(0)}</span>`;
+    if (previous === 0) return `<span class="badge up">▲ ${t('badgeNew')}</span>`;
+    const change = ((current - previous) / previous) * 100;
+    if (Math.abs(change) < 0.5) return `<span class="badge flat">${fmtPct(0)}</span>`;
+    const value = Math.abs(change).toLocaleString(L().locale, { maximumFractionDigits: Math.abs(change) < 10 ? 1 : 0 });
+    return `<span class="badge ${change > 0 ? 'up' : 'down'}">${change > 0 ? '▲' : '▼'} ${fmtPct(value)}</span>`;
+  }
+
+  function niceMax(value) {
+    const raw = Math.max(1, value * 1.08 / 4);
+    const pow = Math.pow(10, Math.floor(Math.log10(raw)));
+    for (const step of [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) {
+      const tick = step * pow;
+      if (tick >= raw && Number.isInteger(tick)) return tick * 4;
+    }
+    return Math.ceil(raw) * 4;
+  }
+
+  function renderSectionChrome() {
+    document.querySelectorAll('[data-view]').forEach(el => el.classList.toggle('active', state.view === 'banner' && el.dataset.view === 'banner'));
+    if (state.view === 'banner') {
+      document.querySelectorAll('[data-channel]').forEach(el => el.classList.remove('active'));
+      $('page-title').textContent = t('navAnnounce');
+      $('page-subtitle').textContent = t('bannerSub');
+      $('view-analytics').hidden = true;
+      $('view-banner').hidden = false;
+      return;
+    }
+    $('view-analytics').hidden = false;
+    $('view-banner').hidden = true;
+    const key = { all: 'All', qr: 'Qr', links: 'Links' }[state.channel];
+    $('page-title').textContent = t('ch' + key);
+    $('page-subtitle').textContent = t('sub' + key);
+    $('footnote').textContent = t('foot' + key);
+    $('kpi-total-label').textContent = t(state.channel === 'qr' ? 'kpiTotalScans' : 'kpiTotalVisits');
+    document.querySelectorAll('[data-channel]').forEach(el => el.classList.toggle('active', el.dataset.channel === state.channel));
+  }
+
+  function renderChannels(period, elapsedEnd, elapsedDays) {
+    const totals = {
+      qr: elapsedDays ? sumRange(period.start, elapsedEnd, 'qr') : 0,
+      links: elapsedDays ? sumRange(period.start, elapsedEnd, 'links') : 0
+    };
+    totals.all = totals.qr + totals.links;
+    document.querySelectorAll('.channel').forEach(card => {
+      const key = card.dataset.channel;
+      card.querySelector('[data-value]').textContent = fmtNum(totals[key]);
+      card.querySelector('[data-meta]').textContent = key === 'all'
+        ? t('periodMeta', { period: periodLabel(state.mode, period) })
+        : t('shareOfAll', { pct: fmtPct(pct(totals[key], totals.all)) });
+      const share = card.querySelector('[data-share]');
+      if (share) share.style.width = pct(totals[key], totals.all) + '%';
+    });
+  }
+
+  function renderRolling() {
+    const lengths = [7, 30, 90, 182, 365];
+    $('rolling').innerHTML = lengths.map((days, i) =>
+      `<div><span>${L().rollingItems[i]}</span><strong>${fmtNum(sumRange(state.today - (days - 1) * DAY, state.today))}</strong></div>`
+    ).join('');
+  }
+
+  function renderChart(mode, buckets) {
+    const channel = state.channel;
+    const max = niceMax(Math.max(0, ...buckets.map(b => b.count)));
+    const ticks = [0, 0.25, 0.5, 0.75, 1].map(f => f * max);
+    const h = n => (n / max) * 100;
+    const ct = L().chartTitle;
+
+    $('chart-title').textContent = `${channel === 'qr' ? ct.scans : ct.visits} ${ct[{ week: 'day', month: 'day', quarter: 'week', half: 'week', year: 'month' }[mode]]}`;
+    $('legend').innerHTML = channel === 'all'
+      ? `<span><i class="swatch qr"></i>${escapeHtml(t('chQr'))}</span><span><i class="swatch links"></i>${escapeHtml(t('chLinks'))}</span>`
+      : `<span><i class="swatch ${channel}"></i>${escapeHtml(t(channel === 'qr' ? 'chQr' : 'chLinks'))}</span>`;
+
+    $('y-axis').innerHTML = ticks.map(v => `<span style="bottom:${h(v)}%">${fmtNum(v)}</span>`).join('');
+
+    const grid = ticks.slice(1).map(v => `<div class="gridline" style="bottom:${h(v)}%"></div>`).join('');
+    const cols = buckets.map((b, i) => {
+      const segs = [];
+      if (channel !== 'links' && b.qr) segs.push(`<div class="seg qr" style="height:${h(b.qr)}%"></div>`);
+      if (channel !== 'qr' && b.links) segs.push(`<div class="seg links" style="height:${h(b.links)}%"></div>`);
+      return `<div class="col" data-i="${i}" tabindex="0" aria-label="${b.name}: ${b.future ? t('upcoming') : fmtNum(b.count) + ' ' + noun(b.count)}">
+        <div class="stack" style="height:100%">${segs.join('')}</div>
+      </div>`;
+    }).join('');
+    const empty = buckets.every(b => b.count === 0);
+    $('plot').innerHTML = grid + `<div class="bars">${cols}</div>` +
+      (empty ? `<div class="empty-note">${t('nothing')}</div>` : '') +
+      '<div class="tooltip" id="tooltip" hidden></div>';
+
+    const plotWidth = $('plot').clientWidth || 600;
+    const labelWidth = mode === 'quarter' || mode === 'half' ? 52 : mode === 'week' ? 36 : 26;
+    const every = Math.max(1, Math.ceil(buckets.length / Math.floor(plotWidth / labelWidth)));
+    $('x-axis').innerHTML = buckets.map((b, i) => `<span>${i % every === 0 ? b.axis : ''}</span>`).join('');
+
+    const tooltip = $('tooltip');
+    $('plot').querySelectorAll('.col').forEach(col => {
+      const show = () => {
+        const b = buckets[col.dataset.i];
+        let html = `<div class="tt-title">${b.name}</div>`;
+        if (b.future) html += `<strong>${t('upcoming')}</strong>`;
+        else {
+          html += `<strong>${fmtNum(b.count)} ${noun(b.count)}</strong>`;
+          if (channel === 'all') {
+            html += `<div class="tt-row"><i class="swatch qr"></i>${escapeHtml(t('chQr'))}<b>${fmtNum(b.qr)}</b></div>` +
+                    `<div class="tt-row"><i class="swatch links"></i>${escapeHtml(t('chLinks'))}<b>${fmtNum(b.links)}</b></div>`;
+          }
+        }
+        tooltip.innerHTML = html;
+        tooltip.hidden = false;
+        const plotRect = $('plot').getBoundingClientRect();
+        const colRect = col.getBoundingClientRect();
+        const segTop = col.querySelector('.seg:last-child');
+        const top = segTop ? segTop.getBoundingClientRect().top - plotRect.top : plotRect.height;
+        const half = tooltip.offsetWidth / 2;
+        const x = Math.min(Math.max(colRect.left + colRect.width / 2 - plotRect.left, half), plotRect.width - half);
+        tooltip.style.left = x + 'px';
+        tooltip.style.top = Math.max(Math.min(top, plotRect.height - 4), tooltip.offsetHeight + 10) + 'px';
+      };
+      col.addEventListener('mouseenter', show);
+      col.addEventListener('focus', show);
+      col.addEventListener('mouseleave', () => { tooltip.hidden = true; });
+      col.addEventListener('blur', () => { tooltip.hidden = true; });
+    });
+  }
+
+  function listPanel(title, hint, rows, options = {}) {
+    const total = rows.reduce((s, r) => s + r.value, 0);
+    const max = Math.max(1, ...rows.map(r => r.value));
+    const best = Math.max(...rows.map(r => r.value));
+    const body = total
+      ? rows.map(r => `
+          <div class="list-row${options.highlightTop && r.value === best ? ' top' : ''}">
+            <div class="name">${r.swatch ? `<i class="swatch ${r.swatch}"></i>` : ''}<span>${escapeHtml(r.label)}</span></div>
+            <div class="track"><div class="fill" style="width:${(r.value / max) * 100}%; background:${r.color || `var(--${state.channel === 'all' ? 'qr' : state.channel})`}"></div></div>
+            <div class="num">${fmtNum(r.value)}<small>${fmtPct(pct(r.value, total))}</small></div>
+          </div>`).join('')
+      : `<p class="list-empty">${t('nothingYet')}</p>`;
+    return `<div class="panel list-panel${options.wide ? ' wide' : ''}">
+      <div class="panel-head"><h3>${escapeHtml(title)}</h3><span class="hint">${hint}</span></div>
+      ${body}
+    </div>`;
+  }
+
+  function renderInsights(period, elapsedEnd, elapsedDays) {
+    const label = periodLabel(state.mode, period);
+    const panels = [];
+    const range = elapsedDays ? [period.start, elapsedEnd] : null;
+
+    const pageRows = () => {
+      const pages = range ? tally(range[0], range[1], 'pages') : {};
+      return PAGE_KEYS.map(k => ({ label: L().pages[k], value: pages[k] || 0 })).sort((a, b) => b.value - a.value);
+    };
+    const weekdayRows = () => {
+      const counts = [0, 0, 0, 0, 0, 0, 0];
+      if (range) for (let d = range[0]; d <= range[1]; d += DAY) counts[parts(d).wd] += countOn(d);
+      return [1, 2, 3, 4, 5, 6, 0].map(wd => ({ label: capitalize(L().weekdays[wd]), value: counts[wd] }));
+    };
+
+    if (state.channel === 'all') {
+      const qr = range ? sumRange(range[0], range[1], 'qr') : 0;
+      const links = range ? sumRange(range[0], range[1], 'links') : 0;
+      panels.push(listPanel(t('whereFrom'), label, [
+        { label: t('chQr'), value: qr, swatch: 'qr', color: 'var(--qr)' },
+        { label: t('chLinks'), value: links, swatch: 'links', color: 'var(--links)' }
+      ]));
+      panels.push(listPanel(t('pagesFirst'), label, pageRows(), { highlightTop: true }));
+      panels.push(listPanel(t('busiestDays'), label, weekdayRows(), { wide: true, highlightTop: true }));
+    } else if (state.channel === 'links') {
+      const sources = range ? tally(range[0], range[1], 'sources') : {};
+      const rows = SOURCE_KEYS.map(k => ({ label: L().sources[k], value: sources[k] || 0 }))
+        .filter(r => r.value > 0).sort((a, b) => b.value - a.value);
+      panels.push(listPanel(t('topSources'), label, rows.length ? rows : [{ label: 'Google', value: 0 }], { highlightTop: true }));
+      panels.push(listPanel(t('pagesFirst'), label, pageRows(), { highlightTop: true }));
+      panels.push(listPanel(t('busiestDays'), label, weekdayRows(), { wide: true, highlightTop: true }));
+    } else {
+      panels.push(listPanel(t('busiestDays'), label, weekdayRows(), { highlightTop: true }));
+      panels.push(`<div class="panel info-panel">
+        <h3>${t('howCountedTitle')}</h3>
+        <p>${t('howCounted1')}</p>
+        <p>${t('howCounted2')}</p>
+      </div>`);
+    }
+    $('insights').innerHTML = panels.join('');
+  }
+
+  function renderBreakdown(mode, buckets, total) {
+    const unit = L().unit[{ week: 'day', month: 'day', quarter: 'week', half: 'week', year: 'month' }[mode]];
+    const rows = buckets.filter(b => !b.future).reverse();
+    if (state.channel === 'all') {
+      $('breakdown-head').innerHTML = `<tr><th>${unit}</th>
+        <th class="num"><span class="th-inner"><i class="swatch qr"></i>${escapeHtml(t('chQr'))}</span></th>
+        <th class="num"><span class="th-inner"><i class="swatch links"></i>${escapeHtml(t('chLinks'))}</span></th>
+        <th class="num">${t('colTotal')}</th></tr>`;
+      $('breakdown').innerHTML = rows.length ? rows.map(b => `<tr>
+        <td>${b.name}</td><td class="num">${fmtNum(b.qr)}</td><td class="num">${fmtNum(b.links)}</td><td class="num total">${fmtNum(b.count)}</td>
+      </tr>`).join('') : `<tr><td colspan="4" class="muted">${t('notStarted')}</td></tr>`;
+    } else {
+      $('breakdown-head').innerHTML = `<tr><th>${unit}</th><th class="num">${t(state.channel === 'qr' ? 'colScans' : 'colVisits')}</th><th class="num">${t('colShare')}</th></tr>`;
+      $('breakdown').innerHTML = rows.length ? rows.map(b => `<tr>
+        <td>${b.name}</td><td class="num">${fmtNum(b.count)}</td><td class="num">${fmtPct(pct(b.count, total))}</td>
+      </tr>`).join('') : `<tr><td colspan="3" class="muted">${t('notStarted')}</td></tr>`;
+    }
+  }
+
+  function render() {
+    renderSectionChrome();
+    renderUpdated();
+    if (state.view === 'banner') return;
+
+    const { mode } = state;
+    const period = periodFor(mode, state.anchor);
+    const elapsedEnd = Math.min(period.end, state.today);
+    const elapsedDays = Math.max(0, Math.round((elapsedEnd - period.start) / DAY) + 1);
+    const isCurrent = period.start <= state.today && state.today <= period.end;
+
+    document.querySelectorAll('#modes button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    $('period-label').textContent = periodLabel(mode, period);
+    $('next').disabled = period.end >= state.today;
+    $('prev').disabled = period.start <= state.earliest;
+    $('today-btn').hidden = isCurrent;
+
+    renderChannels(period, elapsedEnd, elapsedDays);
+
+    const total = elapsedDays ? sumRange(period.start, elapsedEnd) : 0;
+    const prev = periodFor(mode, shiftAnchor(mode, state.anchor, -1));
+    const prevEnd = Math.min(prev.end, prev.start + (elapsedDays - 1) * DAY);
+    const prevTotal = elapsedDays ? sumRange(prev.start, prevEnd) : 0;
+    $('kpi-total').textContent = fmtNum(total);
+    $('kpi-change').innerHTML = `${changeBadge(total, prevTotal)} ${(isCurrent ? L().vsSame : L().vsPrev)[mode]} (${fmtNum(prevTotal)})`;
+
+    const avg = elapsedDays ? total / elapsedDays : 0;
+    $('kpi-avg').textContent = avg < 10 ? avg.toLocaleString(L().locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : fmtNum(avg);
+    $('kpi-avg-sub').textContent = t('perDayOver', { noun: noun(2), n: elapsedDays, days: t(elapsedDays === 1 ? 'day' : 'days') });
+
+    let best = null;
+    for (let d = period.start; d <= elapsedEnd; d += DAY) {
+      const c = countOn(d);
+      if (c > 0 && (!best || c > best.count)) best = { d, count: c };
+    }
+    $('kpi-best').textContent = best ? fmtNum(best.count) : '–';
+    $('kpi-best-sub').textContent = best ? `${fmtWeekday(best.d)} ${fmtDay(best.d, true)}` : t('nothing');
+
+    const todayCount = countOn(state.today);
+    const yesterdayCount = countOn(state.today - DAY);
+    $('kpi-today').textContent = fmtNum(todayCount);
+    $('kpi-today-sub').innerHTML = `${changeBadge(todayCount, yesterdayCount)} ${t('vsYesterday')} (${fmtNum(yesterdayCount)})`;
+
+    const buckets = bucketsFor(mode, period);
+    renderChart(mode, buckets);
+    renderInsights(period, elapsedEnd, elapsedDays);
+    renderRolling();
+    renderBreakdown(mode, buckets, total);
+  }
+
+  let lastUpdated = null;
+  function renderUpdated() {
+    $('updated').textContent = lastUpdated
+      ? t('updated', { time: lastUpdated.toLocaleTimeString(L().locale, { hour: '2-digit', minute: '2-digit' }) })
+      : '';
+  }
+
+  function setLanguage(next) {
+    lang = I18N[next] ? next : 'fr';
+    try { localStorage.setItem('adminLanguage', lang); } catch (err) {}
+    applyStaticText();
+    if (!$('app').hidden) render();
+  }
+
+  // ---------- Data & sign-in ----------
+  function savePassword(value) {
+    try {
+      if (value) sessionStorage.setItem('adminPassword', value);
+      else sessionStorage.removeItem('adminPassword');
+    } catch (err) {}
+  }
+
+  async function loadStats() {
+    const response = await fetch('/api/stats', { headers: { 'x-admin-password': password } });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const err = new Error(data.error || '');
+      err.status = response.status;
+      throw err;
+    }
+    state.days = data.days || {};
+    state.earliest = parseISO(data.start);
+    const today = parseISO(data.today);
+    if (!state.today) state.anchor = today;
+    state.today = today;
+    lastUpdated = new Date();
+    if (data.configured === false) {
+      $('error-banner').className = 'warn-banner';
+      $('error-banner').textContent = t('storageWarning');
+      $('error-banner').hidden = false;
+    }
+  }
+
+  function errorText(err) {
+    return err.message ? `${t('loadError')} (${err.message})` : t('loadError');
+  }
+
+  function showLogin(message) {
+    $('app').hidden = true;
+    $('login-page').hidden = false;
+    $('login-error').textContent = message || '';
+    $('password').value = '';
+    $('password').focus();
+  }
+
+  async function signIn() {
+    const btn = $('login-btn');
+    btn.disabled = true;
+    btn.textContent = t('signingIn');
+    try {
+      await loadStats();
+      savePassword(password);
+      $('login-page').hidden = true;
+      $('app').hidden = false;
+      render();
+    } catch (err) {
+      savePassword('');
+      showLogin(err.status === 401 ? t('wrongPassword') : errorText(err));
+    } finally {
+      btn.disabled = false;
+      btn.textContent = t('signIn');
+    }
+  }
+
+  async function refresh() {
+    const btn = $('refresh');
+    btn.classList.add('loading');
+    $('error-banner').hidden = true;
+    $('error-banner').className = 'error-banner';
+    try {
+      await loadStats();
+      render();
+    } catch (err) {
+      if (err.status === 401) { savePassword(''); showLogin(t('sessionEnded')); return; }
+      $('error-banner').className = 'error-banner';
+      $('error-banner').textContent = errorText(err);
+      $('error-banner').hidden = false;
+    } finally {
+      btn.classList.remove('loading');
+    }
+  }
+
+  function setChannel(channel) {
+    state.channel = channel;
+    state.view = 'analytics';
+    try { localStorage.setItem('adminChannel', channel); } catch (err) {}
+    render();
+  }
+
+  // ---------- Announcement banner editor ----------
+  const frField = () => $('banner-fr');
+  const enField = () => $('banner-en');
+  const setBannerStatus = (text, kind) => {
+    const el = $('banner-status');
     el.textContent = text;
     el.className = 'admin-status' + (kind ? ' ' + kind : '');
   };
 
-  const WINDOW_LABELS = [
-    ['today', "Aujourd'hui"],
-    ['last7', '7 jours'],
-    ['last30', '30 jours'],
-    ['last90', '3 mois'],
-    ['last180', '6 mois'],
-    ['last365', '1 an'],
-  ];
-
-  const renderStats = (windows) => {
-    statGrid.innerHTML = '';
-    WINDOW_LABELS.forEach(([key, label]) => {
-      const w = (windows && windows[key]) || { qr: 0, google: 0, other: 0, total: 0 };
-      const tile = document.createElement('div');
-      tile.className = 'stat-tile';
-      tile.innerHTML = `
-        <div class="stat-label">${label}</div>
-        <div class="stat-total">${w.total}</div>
-        <div class="stat-breakdown">QR ${w.qr} · Google ${w.google} · Autre ${w.other}</div>
-      `;
-      statGrid.appendChild(tile);
-    });
-  };
-
-  const loadStats = async () => {
-    setStatus(statsStatus, 'Chargement...', '');
-    try {
-      const res = await fetch('/api/stats', {
-        headers: { 'x-admin-password': getPassword() },
-      });
-      if (res.status === 401) {
-        setStatus(statsStatus, 'Mot de passe refusé par le serveur.', 'err');
-        return;
-      }
-      if (!res.ok) throw new Error('request failed');
-      const data = await res.json();
-      renderStats(data.windows);
-      if (data.configured === false) {
-        setStatus(statsStatus, 'Stockage non configuré côté serveur (KV_REST_API_URL / TOKEN manquants).', 'warn');
-      } else {
-        setStatus(statsStatus, '', '');
-      }
-    } catch (err) {
-      setStatus(statsStatus, 'Impossible de charger les statistiques.', 'err');
-    }
-  };
-
-  const loadBanner = async () => {
+  async function loadBanner() {
+    setBannerStatus(t('bannerLoading'), '');
     try {
       const res = await fetch('/api/banner');
-      if (!res.ok) return;
+      if (!res.ok) throw new Error('request failed');
       const data = await res.json();
-      frField.value = data.fr || '';
-      enField.value = data.en || '';
+      frField().value = data.fr || '';
+      enField().value = data.en || '';
+      setBannerStatus('', '');
     } catch (err) {
-      // leave fields empty
+      setBannerStatus(t('bannerLoadError'), 'err');
     }
-  };
+  }
 
-  const saveBanner = async () => {
-    saveBtn.disabled = true;
-    setStatus(saveStatus, 'Enregistrement...', '');
+  async function saveBanner() {
+    const btn = $('banner-save-btn');
+    btn.disabled = true;
+    setBannerStatus(t('bannerLoading'), '');
     try {
       const res = await fetch('/api/banner', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-admin-password': getPassword() },
-        body: JSON.stringify({ fr: frField.value.trim(), en: enField.value.trim() }),
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+        body: JSON.stringify({ fr: frField().value.trim(), en: enField().value.trim() }),
       });
-      if (res.status === 401) {
-        setStatus(saveStatus, 'Mot de passe refusé par le serveur.', 'err');
-        return;
-      }
+      if (res.status === 401) { savePassword(''); showLogin(t('sessionEnded')); return; }
       if (!res.ok) throw new Error('request failed');
-      setStatus(saveStatus, 'Enregistré ✓ — visible pour tous les visiteurs.', 'ok');
+      setBannerStatus(t('bannerSaved'), 'ok');
     } catch (err) {
-      setStatus(saveStatus, 'Erreur lors de l\'enregistrement. Réessayez.', 'err');
+      setBannerStatus(t('bannerSaveError'), 'err');
     } finally {
-      saveBtn.disabled = false;
+      btn.disabled = false;
     }
-  };
+  }
 
-  // The password is only ever verified by the server (ADMIN_PASSWORD env
-  // var on Vercel) — nothing correct is hardcoded here to check against.
-  const attemptLogin = async (password) => {
-    loginStatus.textContent = '';
-    loginBtn.disabled = true;
-    try {
-      const res = await fetch('/api/stats', {
-        headers: { 'x-admin-password': password },
-      });
-      if (res.status === 401) {
-        loginStatus.textContent = 'Mot de passe incorrect.';
-        return;
-      }
-      if (!res.ok) throw new Error('request failed');
-      const data = await res.json();
-      sessionStorage.setItem(SESSION_KEY, password);
-      loginScreen.style.display = 'none';
-      dashboard.style.display = 'block';
-      renderStats(data.windows);
-      setStatus(
-        statsStatus,
-        data.configured === false ? 'Stockage non configuré côté serveur (KV_REST_API_URL / TOKEN manquants).' : '',
-        data.configured === false ? 'warn' : ''
-      );
-      loadBanner();
-    } catch (err) {
-      loginStatus.textContent = 'Impossible de contacter le serveur.';
-    } finally {
-      loginBtn.disabled = false;
-    }
-  };
+  // ---------- Events ----------
+  $('login-form').addEventListener('submit', e => {
+    e.preventDefault();
+    password = $('password').value;
+    signIn();
+  });
 
   const EYE_OPEN = '<path d="M1 12C1 12 5 5 12 5C19 5 23 12 23 12C23 12 19 19 12 19C5 19 1 12 1 12Z M15.5 12a3.5 3.5 0 1 1-7 0a3.5 3.5 0 1 1 7 0Z"/>';
   const EYE_CLOSED = '<path d="M1 12C1 12 5 5 12 5C19 5 23 12 23 12C23 12 19 19 12 19C5 19 1 12 1 12Z M15.5 12a3.5 3.5 0 1 1-7 0a3.5 3.5 0 1 1 7 0Z"/><path d="M3.5 3.5 20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>';
-
-  passwordToggleBtn.addEventListener('click', () => {
-    const show = passwordInput.type === 'password';
-    passwordInput.type = show ? 'text' : 'password';
-    passwordToggleIcon.innerHTML = show ? EYE_CLOSED : EYE_OPEN;
-    passwordToggleBtn.setAttribute('aria-label', show ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+  $('toggle-pw').addEventListener('click', () => {
+    const input = $('password');
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    $('toggle-pw-icon').innerHTML = show ? EYE_CLOSED : EYE_OPEN;
+    $('toggle-pw').setAttribute('aria-label', show ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
   });
 
-  loginBtn.addEventListener('click', () => attemptLogin(passwordInput.value));
-  passwordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') loginBtn.click(); });
-  refreshBtn.addEventListener('click', loadStats);
-  saveBtn.addEventListener('click', saveBanner);
+  $('logout').addEventListener('click', () => {
+    password = '';
+    savePassword('');
+    showLogin();
+  });
+  $('refresh').addEventListener('click', refresh);
+  document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => setLanguage(b.dataset.lang)));
+  document.querySelectorAll('[data-channel]').forEach(el => el.addEventListener('click', e => {
+    e.preventDefault();
+    setChannel(el.dataset.channel);
+  }));
+  document.querySelectorAll('[data-view]').forEach(el => el.addEventListener('click', e => {
+    e.preventDefault();
+    state.view = el.dataset.view;
+    render();
+    if (state.view === 'banner') loadBanner();
+  }));
+  $('modes').addEventListener('click', e => {
+    const btn = e.target.closest('button[data-mode]');
+    if (!btn) return;
+    state.mode = btn.dataset.mode;
+    state.anchor = state.today;
+    render();
+  });
+  $('prev').addEventListener('click', () => { state.anchor = shiftAnchor(state.mode, state.anchor, -1); render(); });
+  $('next').addEventListener('click', () => { state.anchor = Math.min(shiftAnchor(state.mode, state.anchor, 1), state.today); render(); });
+  $('today-btn').addEventListener('click', () => { state.anchor = state.today; render(); });
+  $('banner-save-btn').addEventListener('click', saveBanner);
 
-  logoutBtn.addEventListener('click', () => {
-    sessionStorage.removeItem(SESSION_KEY);
-    dashboard.style.display = 'none';
-    loginScreen.style.display = 'block';
-    passwordInput.value = '';
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (!$('app').hidden && state.view === 'analytics') render(); }, 150);
   });
 
-  const savedPassword = getPassword();
-  if (savedPassword) attemptLogin(savedPassword);
+  try { lang = localStorage.getItem('adminLanguage') === 'en' ? 'en' : 'fr'; } catch (err) {}
+  applyStaticText();
+
+  try {
+    const saved = localStorage.getItem('adminChannel');
+    if (['all', 'qr', 'links'].includes(saved)) state.channel = saved;
+  } catch (err) {}
+  try { password = sessionStorage.getItem('adminPassword') || ''; } catch (err) {}
+  if (password) {
+    $('login-page').hidden = true;
+    signIn();
+  }
 </script>
-
 </body>
 </html>

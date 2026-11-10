@@ -1,3 +1,35 @@
+// Counts one visit per browser session: source (QR / Google / social /
+// direct / ...), classified server-side from the landing page + referrer.
+(function trackVisit() {
+  const params = new URLSearchParams(location.search);
+  const qr = params.get('src') === 'qr';
+  // Strip ?src=qr from the address bar so a shared/bookmarked link doesn't
+  // keep counting as a fresh scan every time it's reopened.
+  if (qr) {
+    params.delete('src');
+    const query = params.toString();
+    try { history.replaceState(null, '', location.pathname + (query ? '?' + query : '') + location.hash); } catch (err) {}
+  }
+
+  try {
+    if (sessionStorage.getItem('visitCounted')) return;
+    sessionStorage.setItem('visitCounted', '1');
+  } catch (err) {}
+  if (navigator.webdriver) return;
+
+  const file = location.pathname.split('/').pop().toLowerCase().replace('.html', '');
+  const page = file === 'menu' ? 'menu' : 'home';
+  let ref = '';
+  try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (err) {}
+
+  fetch('/api/track', {
+    method: 'POST',
+    keepalive: true,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ page, ref, qr }),
+  }).catch(() => {});
+})();
+
 // French/English translation engine
 const translations = {
   'Voir le Menu': 'View Menu',
@@ -177,29 +209,6 @@ const fetchLiveBanner = async () => {
     // Offline or API unreachable — banner just stays hidden.
   }
 };
-
-// Visit tracking: QR scans (?src=qr), Google (?src=google or a Google
-// referrer), everything else. Fire-and-forget, never blocks the page.
-const trackVisit = () => {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const tagged = params.get('src');
-    let source = 'other';
-    if (tagged === 'qr') source = 'qr';
-    else if (tagged === 'google') source = 'google';
-    else if (/google\./i.test(document.referrer || '')) source = 'google';
-
-    fetch('/api/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ source }),
-      keepalive: true,
-    }).catch(() => {});
-  } catch (err) {
-    // Never let tracking break the page.
-  }
-};
-trackVisit();
 
 const applyLanguage = () => {
   document.documentElement.lang = currentLang;
