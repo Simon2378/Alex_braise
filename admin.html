@@ -206,10 +206,8 @@
 </div>
 
 <script>
-  // Must match script.js on the public site.
-  const VERCEL_API_BASE = 'PASTE_YOUR_VERCEL_URL_HERE';
-  const API_READY = !VERCEL_API_BASE.startsWith('PASTE_');
-
+  // This page is served by the same Vercel project as the /api functions,
+  // so plain relative paths reach them — no separate base URL needed.
   const SESSION_KEY = 'alexbraise_admin_password';
 
   const loginScreen = document.getElementById('admin-login');
@@ -258,13 +256,9 @@
   };
 
   const loadStats = async () => {
-    if (!API_READY) {
-      setStatus(statsStatus, 'URL de l\'API non configurée (VERCEL_API_BASE).', 'warn');
-      return;
-    }
     setStatus(statsStatus, 'Chargement...', '');
     try {
-      const res = await fetch(`${VERCEL_API_BASE}/api/stats`, {
+      const res = await fetch('/api/stats', {
         headers: { 'x-admin-password': getPassword() },
       });
       if (res.status === 401) {
@@ -285,9 +279,8 @@
   };
 
   const loadBanner = async () => {
-    if (!API_READY) return;
     try {
-      const res = await fetch(`${VERCEL_API_BASE}/api/banner`);
+      const res = await fetch('/api/banner');
       if (!res.ok) return;
       const data = await res.json();
       frField.value = data.fr || '';
@@ -298,14 +291,10 @@
   };
 
   const saveBanner = async () => {
-    if (!API_READY) {
-      setStatus(saveStatus, 'URL de l\'API non configurée (VERCEL_API_BASE).', 'warn');
-      return;
-    }
     saveBtn.disabled = true;
     setStatus(saveStatus, 'Enregistrement...', '');
     try {
-      const res = await fetch(`${VERCEL_API_BASE}/api/banner`, {
+      const res = await fetch('/api/banner', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-admin-password': getPassword() },
         body: JSON.stringify({ fr: frField.value.trim(), en: enField.value.trim() }),
@@ -329,7 +318,7 @@
     loginStatus.textContent = '';
     loginBtn.disabled = true;
     try {
-      const res = await fetch(`${VERCEL_API_BASE}/api/stats`, {
+      const res = await fetch('/api/stats', {
         headers: { 'x-admin-password': password },
       });
       if (res.status === 401) {
@@ -349,7 +338,7 @@
       );
       loadBanner();
     } catch (err) {
-      loginStatus.textContent = API_READY ? 'Impossible de contacter le serveur.' : "URL de l'API non configurée dans ce fichier.";
+      loginStatus.textContent = 'Impossible de contacter le serveur.';
     } finally {
       loginBtn.disabled = false;
     }

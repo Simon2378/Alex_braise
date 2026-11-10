@@ -136,12 +136,9 @@ const I18N_SELECTORS = [
   '.btn-add-cart',
 ].join(', ');
 
-// Announcement banner + visit tracking, both backed by a small Vercel API
-// (see /api in the repo). Paste the deployed project's URL here once it
-// exists — everything below silently no-ops until then.
-const VERCEL_API_BASE = 'PASTE_YOUR_VERCEL_URL_HERE';
-const API_READY = !VERCEL_API_BASE.startsWith('PASTE_');
-
+// Announcement banner + visit tracking, both backed by the /api functions
+// in this same repo (deployed as part of this same Vercel project/domain,
+// so plain relative paths work — no separate base URL needed).
 const BIRTHDAY_BANNER_ICON_GIFT = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="1"/><rect x="3" y="7" width="18" height="4" rx="1"/><rect x="11" y="7" width="2" height="13"/><path d="M12 7c0 0-3 0-4-1.5C7.2 4.3 8.3 3 9.8 3 11 3 12 4.5 12 7Z"/><path d="M12 7c0 0 3 0 4-1.5C16.8 4.3 15.7 3 14.2 3 13 3 12 4.5 12 7Z"/></svg>';
 
 // Empty until the admin page sets something — the banner stays hidden
@@ -170,9 +167,8 @@ const applyBirthdayBanner = () => {
 // Pull whatever announcement is currently set in the admin page so every
 // visitor sees it, with no code changes needed to post or clear it.
 const fetchLiveBanner = async () => {
-  if (!API_READY) return;
   try {
-    const res = await fetch(`${VERCEL_API_BASE}/api/banner`);
+    const res = await fetch('/api/banner');
     if (!res.ok) return;
     const data = await res.json();
     liveBannerMessages = { fr: data?.fr || '', en: data?.en || '' };
@@ -185,7 +181,6 @@ const fetchLiveBanner = async () => {
 // Visit tracking: QR scans (?src=qr), Google (?src=google or a Google
 // referrer), everything else. Fire-and-forget, never blocks the page.
 const trackVisit = () => {
-  if (!API_READY) return;
   try {
     const params = new URLSearchParams(window.location.search);
     const tagged = params.get('src');
@@ -194,7 +189,7 @@ const trackVisit = () => {
     else if (tagged === 'google') source = 'google';
     else if (/google\./i.test(document.referrer || '')) source = 'google';
 
-    fetch(`${VERCEL_API_BASE}/api/track`, {
+    fetch('/api/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ source }),
