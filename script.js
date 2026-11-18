@@ -292,8 +292,8 @@ if (menuBanner) {
       'Poulet Yassa|Demi': { price: '3 500 FCFA' },
       'Poulet Pané|Entier': { price: '7 000 FCFA' },
       'Poulet Pané|Demi': { price: '3 500 FCFA' },
-      'Poulet Braisé|Entier': { price: '4 000 FCFA' },
-      'Poulet Braisé|Demi': { price: '2 000 FCFA' },
+      'Poulet Braisé|Entier': { price: '5 000 FCFA' },
+      'Poulet Braisé|Demi': { price: '2 500 FCFA' },
       "Poulet DG|Entier": {
         name: "Poulet Cuit à l'Étouffée",
         price: '5 000 FCFA',
